@@ -1082,6 +1082,71 @@
       margin-bottom: 16px;
     }
 
+    /* ── S12a & S12b: DETECT - SEPARATE MOTIONS ── */
+    #s12a, #s12b {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 8vw;
+    }
+
+    #s12a .before-after, #s12b .before-after {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    #s12a .ba-col, #s12b .ba-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #s12a .ba-label, #s12b .ba-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 4px;
+    }
+
+    #s12a .ba-label.after, #s12b .ba-label.after {
+      color: var(--detect);
+    }
+
+    #s12a .ba-step, #s12b .ba-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--ink2);
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    #s12a .ba-step.after-style, #s12b .ba-step.after-style {
+      border-color: rgba(217, 79, 42, 0.2);
+      background: rgba(217, 79, 42, 0.03);
+    }
+
+    #s12a .ba-step-num, #s12b .ba-step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--ink3);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    #s12a .ba-step-num.detect-num, #s12b .ba-step-num.detect-num {
+      color: var(--detect);
+    }
+
     /* ── S13: DETECT - OUTPUT ── */
     #s13 {
       background: var(--cream);
@@ -1306,7 +1371,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 12px 14px;
     }
 
     #s17 .out-card .oc-icon {
@@ -2179,28 +2244,16 @@
     <div class="scene" id="s11">
       <div style="max-width:900px; padding: 0 8vw; width:100%;">
         <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
-        <div class="pu-head r d2">A lot of lifecycle marketing runs on fuzzy definitions that calcified a long time ago.
-        </div>
         <div class="def-card r d3">
           <div class="def-label">Working definition — "Power User"</div>
           <div class="def-text">A person who did <strong>50+ high-intent actions</strong> in a 28-day period.</div>
         </div>
-        <div class="weak-chain r d4">
-          <span class="wc-item">Fuzzy definition</span>
-          <span class="wc-sep">→</span>
-          <span class="wc-item">Fuzzy segmentation</span>
-          <span class="wc-sep">→</span>
-          <span class="wc-item">Fuzzy messaging</span>
-          <span class="wc-sep">→</span>
-          <span class="wc-item">Expansion built on proxies</span>
-        </div>
       </div>
     </div>
 
-    <!-- S12: DETECT - HOW WE WORKED IT -->
-    <div class="scene" id="s12">
+    <!-- S12a: DETECT - OLD MOTION -->
+    <div class="scene" id="s12a">
       <div style="max-width:1100px; padding: 0 8vw; width:100%;">
-        <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
         <div class="before-after r d2">
           <div class="ba-col">
             <div class="ba-label">Before: the old motion</div>
@@ -2210,18 +2263,21 @@
             <div class="ba-step"><span class="ba-step-num">4</span>Wait — the data scientist is on vacation</div>
             <div class="ba-step"><span class="ba-step-num">5</span>Weeks later: receive a large Excel file</div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S12b: DETECT - NEW MOTION -->
+    <div class="scene" id="s12b">
+      <div style="max-width:1100px; padding: 0 8vw; width:100%;">
+        <div class="before-after r d2">
           <div class="ba-col">
             <div class="ba-label after">After: a living intelligence problem</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">1</span>Surface prior analyses
-              instantly</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">2</span>Pull up related thinking that
-              already exists inside the company</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">3</span>Refine the question and
-              accelerate query work</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">4</span>Keep interrogating the answer
-              — not just first pass</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">5</span><strong>Treat the question
-                dynamically until the concept itself gets smarter</strong></div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">1</span>Surface prior analyses instantly</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">2</span>Pull up related thinking that already exists inside the company</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">3</span>Refine the question and accelerate query work</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">4</span>Keep interrogating the answer — not just first pass</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">5</span><strong>Treat the question dynamically until the concept itself gets smarter</strong></div>
           </div>
         </div>
       </div>
@@ -2231,8 +2287,7 @@
     <div class="scene" id="s13">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
-        <div class="output-head r d2">The value was not "AI helped us analyze faster." The value was that a
-          <em>foundational concept got smarter</em> — and everything downstream improved.</div>
+        <div class="output-head r d2"> The <em>foundational concept </em> aka our maturity framework got smarter so everything downstream improved.</div>
         <div class="downstream r d3">
           <div class="ds-item"><span class="ds-dot"></span>Segmentation became more meaningful</div>
           <div class="ds-item"><span class="ds-dot"></span>Education strategy tied to actual maturity steps</div>
@@ -2280,10 +2335,10 @@
           happen:</div>
         <div class="q-list r d3">
           <div class="q-item">What actually happened? <strong>Who is affected?</strong></div>
-          <div class="q-item">Is this big or small? Is it a one-off or a pattern?</div>
-          <div class="q-item"><strong>Is this an education problem, a product problem, a messaging problem, or an
-              instrumentation problem?</strong></div>
-          <div class="q-item">What should happen next?</div>
+          <div class="q-item">Is this big or small? Is it a one-off or a <strong>pattern</strong>?</div>
+          <div class="q-item">What <strong>kind of problem </strong> is it: education, product, messaging, or
+              instrumentation?</div>
+          <div class="q-item">What should happen <strong>next</strong>?</div>
         </div>
       </div>
     </div>
@@ -2292,41 +2347,34 @@
     <div class="scene" id="s17">
       <div style="max-width:1000px; padding: 0 8vw; width:100%;">
         <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
-        <div class="unlock-head r d2">The unlock was not a clever paragraph. The unlock was <em>structure.</em></div>
+        <div class="unlock-head r d2">Glean didn't give us a clever paragraph, it gave us <em>structure.</em></div>
         <div class="output-grid r d3">
           <div class="out-card">
             <div class="oc-icon">📋</div>
             <div class="oc-title">Summary of decisions</div>
-            <div class="oc-sub">What happened, why it matters, how big it is</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">👤</div>
             <div class="oc-title">Owners</div>
-            <div class="oc-sub">Who should do what next — clearly routed</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">❓</div>
             <div class="oc-title">Open questions</div>
-            <div class="oc-sub">What is still unresolved and needs a decision</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">⚠️</div>
             <div class="oc-title">Risks</div>
-            <div class="oc-sub">What could go wrong if we don't act</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">🎯</div>
             <div class="oc-title">Next steps</div>
-            <div class="oc-sub">Prioritized and actionable, not vague</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">📊</div>
             <div class="oc-title">Asks for leadership</div>
-            <div class="oc-sub">What needs escalation vs. what we own</div>
           </div>
         </div>
-        <div class="cred-line r d4">You stop responding to whoever pinged last. You start building an <em>operating
-            layer</em> — the team that helps the business <strong>reduce confusion, not just absorb it.</strong></div>
+        <div class="cred-line r d4">You start building an <em>operating system</em> so your team can <strong>reduce confusion</strong>, not just absorb it.</div>
       </div>
     </div>
 
@@ -2336,8 +2384,7 @@
         <div class="layer-num r d1">Layer 03 — Education</div>
         <div class="layer-word r d2">Deliver</div>
         <div class="layer-desc r d3">Once I know what is happening, and I have clarity on what should happen next, I
-          need a scalable way to actually deliver the intervention. The key word: <em>scalable.</em></div>
-        <div class="layer-domain r d4">Education → A System, Not a Pile</div>
+          need a <strong>scalable</strong> way to actually deliver the intervention. </div>
       </div>
     </div>
 
@@ -2345,7 +2392,7 @@
     <div class="scene" id="s19">
       <div style="max-width:880px; padding: 0 8vw; width:100%;">
         <div class="layer-tag deliver r d1"><span class="dot"></span>Deliver layer</div>
-        <div class="pile-head r d2">We had accumulated a lot of helpful content in a very unhelpful format.</div>
+        <div class="pile-head r d2">We had accumulated a lot of helpful content in unhelpful formats.</div>
         <div class="pile-items r d3">
           <span class="pile-chip">Videos somewhere in Drive</span>
           <span class="pile-chip">Docs nobody can find</span>
@@ -2357,8 +2404,7 @@
           <span class="pile-chip">Looms that might be outdated</span>
           <span class="pile-chip">Partridge in a pear tree</span>
         </div>
-        <div class="pile-verdict r d4">That is not an academy. That is not scaled education. <strong>That is an evidence
-            locker where videos go to die.</strong></div>
+        <div class="pile-verdict r d4">That is an evidence locker where videos go to die.</div>
       </div>
     </div>
 
