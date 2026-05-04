@@ -6,42 +6,39 @@ Items to revisit in `ai-native-custmktg-presentation.html`. Do not start work wi
 
 ## Pending
 
-- [ ] **S3 – The Stitching Problem**: Add a visual of a quilt with the various threads (research, synthesis, drafting, orchestration) coming together into it.
-
-- [ ] **S8 – Why Me**: Each bullet should appear on its own click (progressive reveal).
-
-- [ ] **S9**: Increase text size; consider adding a visual.
-
-- [ ] **S12 section (slide 13)**: Visual is too large and overflows the screen — make it more adaptive to available space.
-
-- [ ] **S15 (slide 16)**: Replace text fragments with logos.
-
-- [ ] **S16**: Replace text with square logos.
-
-- [ ] **S21 (slide 20)**: Use visuals and logos instead of text.
-
-- [ ] **S22 (slide 21)**: Generate both images (placeholders currently).
-
-- [ ] **S23 (slide 22)**: Visual should clearly distinguish what AI does vs. what the human does.
-
-- [ ] **S24 (slide 23)**: Add a visual of a scoreboard or rubric.
-
-- [ ] **S28**: Text sizing is off for slide deck proportions — fix sizing.
-
-- [ ] **Last slide**: Add LinkedIn and Substack references; rework the closing question.
-
-- [ ] **GLOBAL – Copy reduction**: Slides have too much text — they're carrying the script rather than the key points. Trim each slide to the essential idea that needs to land; remove explanatory/connective language that belongs in the spoken delivery.
-
-- [ ] **GLOBAL – Layout optimization**: The deck will be presented at slide-deck proportions (not full browser). Audit all slides for overflow, oversized visuals, and layout that assumes a tall viewport. Optimize so each slide fits comfortably within a standard slide aspect ratio.
-
-- [ ] **S6 – AI as Acceleration**: Reorder the click sequence. First click reveals the acceleration visual; second click reveals the AI-native version.
-
-- [ ] **S4 – The Real Question (dark slide)**: Split into two slides.
-  - Slide 4a (light mode): Shows the question "How do I do my job more efficiently?"
-  - Slide 4b (on click): Transitions — crosses out "efficiently" and the slide becomes the dark version with "If research, synthesis, drafting and orchestration are suddenly...become"
 
 ---
 
 ## Done
 
-<!-- Move completed items here -->
+- [x] **S3 – The Stitching Problem**: Added inline SVG quilt with 4 brand-colored diamond patches and dashed seam lines.
+
+- [x] **S8 – Why Me**: Each bullet now appears on its own click (progressive reveal via data-steps/data-min-step).
+
+- [x] **S9**: Increased text size; added large decorative arrow visual.
+
+- [x] **S12 section (slide 13)**: Added overflow containment and reduced font sizes to prevent overflow.
+
+- [x] **S15 (slide 16)**: Replaced plain text source labels with colored emoji-prefixed badges.
+
+- [x] **S16**: Added 32×32 square decide-indigo badges before each question item.
+
+- [x] **S21 (slide 20)**: Added emoji prefixes (🎥📄🔗🧠🎬🚶📊⏰🌲) to pile chips.
+
+- [x] **S22 (slide 21)**: Replaced emoji placeholders with inline SVG illustrations (artisanal person/pen and infrastructure nodes).
+
+- [x] **S23 (slide 22)**: Added 🤖 and 👤 prefixes to AI vs. human workflow steps with color distinction.
+
+- [x] **S24 (slide 23)**: Added before→after scoreboard header with trophy SVG.
+
+- [x] **S28**: Reduced final-q font sizes for slide-deck proportions.
+
+- [x] **Last slide**: Added LinkedIn and Substack links; reworked closing question to "The function that gets this right first / will shape how the whole category / *compounds.*"
+
+- [x] **GLOBAL – Copy reduction**: Trimmed S26 req-body text, S17 cred-line, S24 orch-sub.
+
+- [x] **GLOBAL – Layout optimization**: Added CSS overrides for S12, S17, S25, S26 to prevent overflow at slide-deck proportions.
+
+- [x] **S6 – AI as Acceleration**: First click reveals acceleration column; second click reveals AI-native column (data-steps progressive reveal).
+
+- [x] **S4 – The Real Question (dark slide)**: Split into S4a (light, efficiency question) and S4b (dark, "efficiently" struck through + new question).

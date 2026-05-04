@@ -1,0 +1,136 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="600" y="40" font-size="32" font-weight="bold" text-anchor="middle" fill="#1a1a1a">
+    Building the Customer Marketing Quilt
+  </text>
+
+  <!-- SPOOL 1: Customer Context -->
+  <g>
+    <!-- Spool cylinder -->
+    <ellipse cx="150" cy="200" rx="35" ry="15" fill="#e8f4f8" stroke="#0099cc" stroke-width="2"/>
+    <rect x="115" y="200" width="70" height="80" fill="#e8f4f8" stroke="#0099cc" stroke-width="2"/>
+    <ellipse cx="150" cy="280" rx="35" ry="15" fill="#b3dce8" stroke="#0099cc" stroke-width="2"/>
+
+    <!-- Thread coming out -->
+    <path d="M 185 240 Q 250 220 350 200" stroke="#0099cc" stroke-width="8" fill="none"/>
+
+    <!-- Label -->
+    <text x="150" y="340" font-size="14" font-weight="bold" text-anchor="middle" fill="#0099cc">
+      Customer
+    </text>
+    <text x="150" y="360" font-size="14" font-weight="bold" text-anchor="middle" fill="#0099cc">
+      Context
+    </text>
+  </g>
+
+  <!-- SPOOL 2: Product Signal -->
+  <g>
+    <!-- Spool cylinder -->
+    <ellipse cx="400" cy="150" rx="35" ry="15" fill="#f0e8f4" stroke="#9933cc" stroke-width="2"/>
+    <rect x="365" y="150" width="70" height="80" fill="#f0e8f4" stroke="#9933cc" stroke-width="2"/>
+    <ellipse cx="400" cy="230" rx="35" ry="15" fill="#d9b3e8" stroke="#9933cc" stroke-width="2"/>
+
+    <!-- Thread coming out -->
+    <path d="M 435 190 Q 500 170 550 180" stroke="#9933cc" stroke-width="8" fill="none"/>
+
+    <!-- Label -->
+    <text x="400" y="290" font-size="14" font-weight="bold" text-anchor="middle" fill="#9933cc">
+      Product
+    </text>
+    <text x="400" y="310" font-size="14" font-weight="bold" text-anchor="middle" fill="#9933cc">
+      Signal
+    </text>
+  </g>
+
+  <!-- SPOOL 3: Educational Content -->
+  <g>
+    <!-- Spool cylinder -->
+    <ellipse cx="400" cy="550" rx="35" ry="15" fill="#f4f0e8" stroke="#cc9933" stroke-width="2"/>
+    <rect x="365" y="550" width="70" height="80" fill="#f4f0e8" stroke="#cc9933" stroke-width="2"/>
+    <ellipse cx="400" cy="630" rx="35" ry="15" fill="#e8d9b3" stroke="#cc9933" stroke-width="2"/>
+
+    <!-- Thread coming out -->
+    <path d="M 435 590 Q 500 600 550 600" stroke="#cc9933" stroke-width="8" fill="none"/>
+
+    <!-- Label -->
+    <text x="400" y="690" font-size="14" font-weight="bold" text-anchor="middle" fill="#cc9933">
+      Educational
+    </text>
+    <text x="400" y="710" font-size="14" font-weight="bold" text-anchor="middle" fill="#cc9933">
+      Content
+    </text>
+  </g>
+
+  <!-- SPOOL 4: Incoming Asks -->
+  <g>
+    <!-- Spool cylinder -->
+    <ellipse cx="150" cy="600" rx="35" ry="15" fill="#e8f4f0" stroke="#33cc66" stroke-width="2"/>
+    <rect x="115" y="600" width="70" height="80" fill="#e8f4f0" stroke="#33cc66" stroke-width="2"/>
+    <ellipse cx="150" cy="680" rx="35" ry="15" fill="#b3e8d9" stroke="#33cc66" stroke-width="2"/>
+
+    <!-- Thread coming out -->
+    <path d="M 185 640 Q 250 620 350 600" stroke="#33cc66" stroke-width="8" fill="none"/>
+
+    <!-- Label -->
+    <text x="150" y="740" font-size="14" font-weight="bold" text-anchor="middle" fill="#33cc66">
+      Incoming
+    </text>
+    <text x="150" y="760" font-size="14" font-weight="bold" text-anchor="middle" fill="#33cc66">
+      Asks
+    </text>
+  </g>
+
+  <!-- QUILT - Center piece -->
+  <g>
+    <!-- Quilt pattern background -->
+    <rect x="600" y="250" width="500" height="350" fill="#ffe8cc" stroke="#8B4513" stroke-width="3" rx="10"/>
+
+    <!-- Quilt pattern squares -->
+    <!-- Row 1 -->
+    <rect x="620" y="270" width="60" height="60" fill="#0099cc" opacity="0.7"/>
+    <rect x="690" y="270" width="60" height="60" fill="#9933cc" opacity="0.7"/>
+    <rect x="760" y="270" width="60" height="60" fill="#cc9933" opacity="0.7"/>
+    <rect x="830" y="270" width="60" height="60" fill="#33cc66" opacity="0.7"/>
+    <rect x="900" y="270" width="60" height="60" fill="#0099cc" opacity="0.7"/>
+
+    <!-- Row 2 -->
+    <rect x="620" y="340" width="60" height="60" fill="#9933cc" opacity="0.7"/>
+    <rect x="690" y="340" width="60" height="60" fill="#cc9933" opacity="0.7"/>
+    <rect x="760" y="340" width="60" height="60" fill="#33cc66" opacity="0.7"/>
+    <rect x="830" y="340" width="60" height="60" fill="#0099cc" opacity="0.7"/>
+    <rect x="900" y="340" width="60" height="60" fill="#9933cc" opacity="0.7"/>
+
+    <!-- Row 3 -->
+    <rect x="620" y="410" width="60" height="60" fill="#cc9933" opacity="0.7"/>
+    <rect x="690" y="410" width="60" height="60" fill="#33cc66" opacity="0.7"/>
+    <rect x="760" y="410" width="60" height="60" fill="#0099cc" opacity="0.7"/>
+    <rect x="830" y="410" width="60" height="60" fill="#9933cc" opacity="0.7"/>
+    <rect x="900" y="410" width="60" height="60" fill="#cc9933" opacity="0.7"/>
+
+    <!-- Row 4 -->
+    <rect x="620" y="480" width="60" height="60" fill="#33cc66" opacity="0.7"/>
+    <rect x="690" y="480" width="60" height="60" fill="#0099cc" opacity="0.7"/>
+    <rect x="760" y="480" width="60" height="60" fill="#9933cc" opacity="0.7"/>
+    <rect x="830" y="480" width="60" height="60" fill="#cc9933" opacity="0.7"/>
+    <rect x="900" y="480" width="60" height="60" fill="#33cc66" opacity="0.7"/>
+
+    <!-- Quilt label -->
+    <text x="850" y="650" font-size="20" font-weight="bold" text-anchor="middle" fill="#8B4513">
+      Integrated Customer Marketing
+    </text>
+  </g>
+
+  <!-- Connecting lines (threads) from spools to quilt -->
+  <path d="M 350 200 Q 450 220 600 350" stroke="#0099cc" stroke-width="6" fill="none" opacity="0.6"/>
+  <path d="M 550 180 Q 575 200 600 320" stroke="#9933cc" stroke-width="6" fill="none" opacity="0.6"/>
+  <path d="M 550 600 Q 575 500 600 550" stroke="#cc9933" stroke-width="6" fill="none" opacity="0.6"/>
+  <path d="M 350 600 Q 450 550 600 500" stroke="#33cc66" stroke-width="6" fill="none" opacity="0.6"/>
+
+  <!-- Legend -->
+  <text x="50" y="780" font-size="12" fill="#666">
+    Each thread color represents a different input weaving together into a cohesive whole
+  </text>
+</svg>
