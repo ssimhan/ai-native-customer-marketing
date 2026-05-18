@@ -65,7 +65,7 @@
       bottom: 24px;
       right: 32px;
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.15em;
       color: var(--ink3);
       opacity: 0;
@@ -100,7 +100,7 @@
       position: absolute;
       inset: 0;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
@@ -170,15 +170,26 @@
       transition-delay: 1.17s
     }
 
+    /* ── STEP REVEALS ── */
+    [data-step] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    [data-step].revealed {
+      opacity: 1;
+      transform: none;
+    }
+
     /* ── SHARED COMPONENTS ── */
 
     .eyebrow {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 20px;
+      margin-bottom: 32px;
     }
 
     .eyebrow.detect {
@@ -200,10 +211,10 @@
       padding: 6px 16px;
       border-radius: 100px;
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     .layer-tag.detect {
@@ -236,7 +247,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 28px 32px;
+      padding: 36px 44px;
     }
 
     .divider {
@@ -253,6 +264,8 @@
       flex-direction: column;
       text-align: center;
       gap: 0;
+      align-items: center;
+      padding-top: 8vh;
     }
 
     #s0 .bg-word {
@@ -273,11 +286,11 @@
 
     #s0 .eyebrow-top {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       z-index: 2;
     }
 
@@ -298,7 +311,7 @@
 
     #s0 .byline {
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 20px;
       color: var(--ink3);
       letter-spacing: 0.08em;
       z-index: 2;
@@ -321,7 +334,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
+      font-size: 20px;
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.1em;
       color: var(--ink3);
@@ -335,23 +348,24 @@
 
     #s0 .fh-arrow {
       color: var(--ink3);
-      font-size: 14px;
+      font-size: 22px;
     }
 
     /* ── S1: COLD OPEN A ── */
     #s1 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
     #s1 .big-q {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 4.5vw, 68px);
+      font-size: clamp(56px, 5.5vw, 90px);
       font-weight: 400;
       line-height: 1.2;
-      max-width: 820px;
+      max-width: 920px;
     }
 
     #s1 .big-q em {
@@ -366,17 +380,17 @@
     }
 
     #s1 .faster-chip {
-      padding: 8px 18px;
+      padding: 10px 22px;
       background: var(--cream2);
       border: 1px solid var(--border);
       border-radius: 100px;
-      font-size: 14px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink2);
     }
 
     #s1 .coda {
       margin-top: 36px;
-      font-size: clamp(15px, 1.6vw, 20px);
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
       font-style: italic;
       font-family: 'Playfair Display', serif;
@@ -386,16 +400,17 @@
     #s2 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
     #s2 .big-stmt {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 5.5vw, 84px);
+      font-size: clamp(72px, 7vw, 120px);
       font-weight: 700;
       line-height: 1.1;
-      max-width: 900px;
+      max-width: 980px;
       letter-spacing: -0.01em;
     }
 
@@ -405,10 +420,10 @@
     }
 
     #s2 .subtext {
-      margin-top: 32px;
-      font-size: clamp(16px, 1.7vw, 22px);
+      margin-top: 36px;
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
-      max-width: 640px;
+      max-width: 760px;
       line-height: 1.6;
     }
 
@@ -416,23 +431,24 @@
     #s3 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
     #s3 .stitch-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     #s3 .stitch-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 16px;
       width: 100%;
       max-width: 1100px;
     }
@@ -441,32 +457,32 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 28px 32px;
     }
 
     #s3 .stitch-item .si-icon {
-      font-size: 22px;
-      margin-bottom: 10px;
+      font-size: 28px;
+      margin-bottom: 12px;
     }
 
     #s3 .stitch-item .si-label {
-      font-size: 13px;
+      font-size: clamp(20px, 1.5vw, 26px);
       font-weight: 600;
       color: var(--ink);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
     #s3 .stitch-item .si-sub {
-      font-size: 12px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
       line-height: 1.4;
     }
 
     #s3 .bottom-line {
-      margin-top: 28px;
-      font-size: clamp(15px, 1.6vw, 19px);
+      margin-top: 32px;
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
-      max-width: 900px;
+      max-width: 1000px;
       line-height: 1.6;
     }
 
@@ -475,91 +491,114 @@
       font-weight: 600;
     }
 
-    /* ── S4: THE REAL QUESTION ── */
-    #s4 {
+    /* ── S5: THE REAL QUESTION - light ── */
+    #s5 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s5 .big-stmt {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 7vw, 120px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.15;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    /* ── S6: THE REAL QUESTION ── */
+    #s6 {
       background: var(--ink);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
       color: #F0EDE8;
     }
 
-    #s4 .old-q {
-      font-size: clamp(16px, 1.8vw, 22px);
+    #s6 .old-q {
+      font-size: clamp(36px, 2.5vw, 44px);
       color: rgba(240, 237, 232, 0.45);
       font-style: italic;
-      margin-bottom: 28px;
+      margin-bottom: 36px;
       font-family: 'Playfair Display', serif;
       text-decoration: line-through;
       text-decoration-color: rgba(217, 79, 42, 0.5);
     }
 
-    #s4 .new-q {
+    #s6 .new-q {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 76px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.15;
-      max-width: 900px;
+      max-width: 980px;
       letter-spacing: -0.01em;
     }
 
-    #s4 .new-q em {
+    #s6 .new-q em {
       font-style: italic;
       color: var(--detect);
     }
 
-    #s4 .label-row {
+    #s6 .label-row {
       display: flex;
       gap: 16px;
       margin-top: 40px;
     }
 
-    /* ── S5: REFRAME ── */
-    #s5 {
+    /* ── S7: REFRAME ── */
+    #s7 {
       background: var(--cream);
       padding: 0 7vw;
+      padding-top: 8vh;
       gap: 24px;
+      align-items: flex-start;
     }
 
-    #s5 .col {
+    #s7 .col {
       flex: 1;
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
 
-    #s5 .col-label {
+    #s7 .col-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    #s5 .col-label.old {
+    #s7 .col-label.old {
       color: var(--ink3);
     }
 
-    #s5 .col-label.new {
+    #s7 .col-label.new {
       color: var(--detect);
     }
 
-    #s5 .col-card {
+    #s7 .col-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px 22px;
-      font-size: clamp(13px, 1.3vw, 16px);
+      padding: 24px 28px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink2);
       line-height: 1.5;
     }
 
-    #s5 .col-card.new-style {
+    #s7 .col-card.new-style {
       border-color: rgba(217, 79, 42, 0.2);
       background: rgba(217, 79, 42, 0.03);
     }
 
-    #s5 .vs-div {
+    #s7 .vs-div {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -568,211 +607,221 @@
       padding: 0 12px;
     }
 
-    #s5 .vs-div .vs-line {
+    #s7 .vs-div .vs-line {
       width: 1px;
       flex: 1;
       background: var(--border);
     }
 
-    #s5 .vs-div .vs-label {
+    #s7 .vs-div .vs-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       color: var(--ink3);
       letter-spacing: 0.1em;
     }
 
-    /* ── S6: THE FRAME ── */
-    #s6 {
+    #s7 .col > div:not([class]),
+    #s7 .col ul,
+    #s7 .col li {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    /* ── S8: THE FRAME ── */
+    #s8 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       padding: 0 6vw;
+      padding-top: 8vh;
       text-align: center;
     }
 
-    #s6 .frame-title {
+    #s8 .frame-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 2vw, 28px);
+      font-size: clamp(36px, 2.5vw, 44px);
       font-weight: 400;
       color: var(--ink2);
       margin-bottom: 48px;
     }
 
-    #s6 .three-cols {
+    #s8 .three-cols {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      gap: 24px;
       width: 100%;
-      max-width: 1000px;
+      max-width: 1100px;
     }
 
-    #s6 .frame-col {
+    #s8 .frame-col {
       border-radius: 20px;
-      padding: 36px 28px;
+      padding: 40px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
-    #s6 .frame-col.detect {
+    #s8 .frame-col.detect {
       background: rgba(217, 79, 42, 0.06);
       border: 1px solid rgba(217, 79, 42, 0.18);
     }
 
-    #s6 .frame-col.decide {
+    #s8 .frame-col.decide {
       background: rgba(80, 71, 229, 0.06);
       border: 1px solid rgba(80, 71, 229, 0.18);
     }
 
-    #s6 .frame-col.deliver {
+    #s8 .frame-col.deliver {
       background: rgba(13, 158, 114, 0.06);
       border: 1px solid rgba(13, 158, 114, 0.18);
     }
 
-    #s6 .fc-num {
+    #s8 .fc-num {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       opacity: 0.5;
     }
 
-    #s6 .fc-num.detect {
+    #s8 .fc-num.detect {
       color: var(--detect);
     }
 
-    #s6 .fc-num.decide {
+    #s8 .fc-num.decide {
       color: var(--decide);
     }
 
-    #s6 .fc-num.deliver {
+    #s8 .fc-num.deliver {
       color: var(--deliver);
     }
 
-    #s6 .fc-word {
+    #s8 .fc-word {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 4vw, 56px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 900;
       letter-spacing: -0.01em;
       line-height: 1;
     }
 
-    #s6 .fc-word.detect {
+    #s8 .fc-word.detect {
       color: var(--detect);
     }
 
-    #s6 .fc-word.decide {
+    #s8 .fc-word.decide {
       color: var(--decide);
     }
 
-    #s6 .fc-word.deliver {
+    #s8 .fc-word.deliver {
       color: var(--deliver);
     }
 
-    #s6 .fc-sub {
-      font-size: 13px;
+    #s8 .fc-sub {
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
       text-align: center;
       line-height: 1.4;
     }
 
-    #s6 .fc-domain {
+    #s8 .fc-domain {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 100px;
       margin-top: 4px;
     }
 
-    #s6 .fc-domain.detect {
+    #s8 .fc-domain.detect {
       background: rgba(217, 79, 42, 0.1);
       color: var(--detect);
     }
 
-    #s6 .fc-domain.decide {
+    #s8 .fc-domain.decide {
       background: rgba(80, 71, 229, 0.1);
       color: var(--decide);
     }
 
-    #s6 .fc-domain.deliver {
+    #s8 .fc-domain.deliver {
       background: rgba(13, 158, 114, 0.1);
       color: var(--deliver);
     }
 
-    #s6 .arrow-row {
+    #s8 .arrow-row {
       display: flex;
       align-items: center;
       gap: 20px;
       margin-top: 36px;
     }
 
-    #s6 .arrow-item {
+    #s8 .arrow-item {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink3);
     }
 
-    #s6 .arrow-item.detect {
+    #s8 .arrow-item.detect {
       color: var(--detect);
     }
 
-    #s6 .arrow-item.decide {
+    #s8 .arrow-item.decide {
       color: var(--decide);
     }
 
-    #s6 .arrow-item.deliver {
+    #s8 .arrow-item.deliver {
       color: var(--deliver);
     }
 
-    #s6 .arrow-sep {
+    #s8 .arrow-sep {
       color: var(--ink3);
       font-size: 16px;
     }
 
-    /* ── S7: WHY CM - STRUCTURAL PROBLEM ── */
-    #s7 {
+    /* ── S9: WHY CM - STRUCTURAL PROBLEM ── */
+    #s9 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s7 .big-line {
+    #s9 .big-line {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 3.8vw, 58px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.15;
-      max-width: 840px;
+      max-width: 960px;
       margin-bottom: 36px;
       letter-spacing: -0.01em;
     }
 
-    #s7 .big-line em {
+    #s9 .big-line em {
       font-style: italic;
       color: var(--ink3);
     }
 
-    #s7 .prob-list {
+    #s9 .prob-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
 
-    #s7 .prob-item {
+    #s9 .prob-item {
       display: flex;
       align-items: center;
       gap: 16px;
-      font-size: clamp(14px, 1.5vw, 18px);
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
     }
 
-    #s7 .prob-item::before {
+    #s9 .prob-item::before {
       content: '';
       width: 6px;
       height: 6px;
@@ -782,78 +831,94 @@
       flex-shrink: 0;
     }
 
-    /* ── S8: HUSTLE ── */
-    #s8 {
+    /* ── S11: HUSTLE ── */
+    #s11 {
       background: var(--cream2);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s8 .hustle-head {
+    #s11 .big-line {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.8vw, 42px);
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 960px;
+      letter-spacing: -0.01em;
+    }
+
+    #s11 .big-line em {
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    #s11 .hustle-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.2;
-      max-width: 780px;
+      max-width: 880px;
       margin-bottom: 32px;
     }
 
-    #s8 .manually-list {
+    #s11 .manually-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      max-width: 760px;
+      gap: 14px;
+      max-width: 860px;
     }
 
-    #s8 .m-item {
-      font-size: clamp(14px, 1.45vw, 18px);
+    #s11 .m-item {
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
       line-height: 1.4;
-      padding-left: 20px;
+      padding-left: 28px;
       position: relative;
     }
 
-    #s8 .m-item::before {
+    #s11 .m-item::before {
       content: '—';
       position: absolute;
       left: 0;
       color: var(--ink3);
     }
 
-    #s8 .punchline {
+    #s11 .punchline {
       margin-top: 32px;
       font-family: 'Playfair Display', serif;
-      font-size: clamp(16px, 1.8vw, 24px);
+      font-size: clamp(48px, 3vw, 56px);
       font-style: italic;
       color: var(--ink3);
     }
 
-    /* ── S9: THE SHIFT ── */
-    #s9 {
+    /* ── S12: THE SHIFT ── */
+    #s12 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s9 .shift-from-to {
+    #s12 .shift-from-to {
       display: flex;
       flex-direction: column;
-      gap: 14px;
-      max-width: 820px;
+      gap: 16px;
+      max-width: 960px;
     }
 
-    #s9 .shift-row {
+    #s12 .shift-row {
       display: flex;
       align-items: center;
       gap: 20px;
-      font-size: clamp(14px, 1.5vw, 18px);
+      font-size: clamp(36px, 2.5vw, 44px);
     }
 
-    #s9 .shift-from {
+    #s12 .shift-from {
       flex: 1;
-      padding: 14px 20px;
+      padding: 18px 24px;
       background: var(--cream2);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -862,15 +927,15 @@
       text-decoration-color: rgba(28, 26, 46, 0.25);
     }
 
-    #s9 .shift-arrow {
+    #s12 .shift-arrow {
       color: var(--ink3);
-      font-size: 18px;
+      font-size: 24px;
       flex-shrink: 0;
     }
 
-    #s9 .shift-to {
+    #s12 .shift-to {
       flex: 1;
-      padding: 14px 20px;
+      padding: 18px 24px;
       background: var(--card);
       border: 1px solid rgba(13, 158, 114, 0.25);
       border-radius: 10px;
@@ -878,117 +943,119 @@
       font-weight: 500;
     }
 
-    #s9 .shift-intro {
+    #s12 .shift-intro {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(20px, 2.4vw, 36px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.2;
-      margin-bottom: 36px;
-      max-width: 820px;
+      margin-bottom: 40px;
+      max-width: 960px;
     }
 
-    /* ── S10: DETECT INTRO ── */
-    #s10 {
+    /* ── S13: DETECT INTRO ── */
+    #s13 {
       background: rgba(217, 79, 42, 0.04);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
       border-left: 4px solid var(--detect);
     }
 
-    #s10 .layer-intro-num {
+    #s13 .layer-intro-num {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--detect);
       opacity: 0.7;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
-    #s10 .layer-word {
+    #s13 .layer-word {
       font-family: 'Playfair Display', serif;
       font-size: clamp(72px, 12vw, 160px);
       font-weight: 900;
       line-height: 0.9;
       color: var(--detect);
       letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
-    #s10 .layer-desc {
-      font-size: clamp(16px, 1.8vw, 24px);
+    #s13 .layer-desc {
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
-      max-width: 640px;
+      max-width: 760px;
       line-height: 1.5;
     }
 
-    #s10 .layer-domain {
-      margin-top: 24px;
+    #s13 .layer-domain {
+      margin-top: 28px;
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 16px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--detect);
     }
 
-    /* ── S11: DETECT - POWER USER PROBLEM ── */
-    #s11 {
+    /* ── S14: DETECT - POWER USER PROBLEM ── */
+    #s14 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s11 .pu-head {
+    #s14 .pu-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.2;
-      max-width: 860px;
-      margin-bottom: 32px;
+      max-width: 960px;
+      margin-bottom: 40px;
     }
 
-    #s11 .def-card {
+    #s14 .def-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px 28px;
-      max-width: 860px;
+      padding: 36px 44px;
+      max-width: 960px;
       width: 100%;
       position: relative;
     }
 
-    #s11 .def-label {
+    #s14 .def-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    #s11 .def-text {
-      font-size: clamp(15px, 1.6vw, 20px);
+    #s14 .def-text {
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink);
       line-height: 1.5;
     }
 
-    #s11 .def-text strong {
+    #s14 .def-text strong {
       color: var(--detect);
     }
 
-    #s11 .def-problem {
-      margin-top: 16px;
-      font-size: clamp(13px, 1.3vw, 16px);
+    #s14 .def-problem {
+      margin-top: 20px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
       font-style: italic;
       line-height: 1.5;
-      padding-top: 16px;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
     }
 
-    #s11 .weak-chain {
+    #s14 .weak-chain {
       display: flex;
       align-items: center;
       gap: 8px;
@@ -996,199 +1063,129 @@
       flex-wrap: wrap;
     }
 
-    #s11 .wc-item {
-      padding: 6px 14px;
+    #s14 .wc-item {
+      padding: 10px 18px;
       background: rgba(217, 79, 42, 0.06);
       border: 1px solid rgba(217, 79, 42, 0.15);
       border-radius: 8px;
-      font-size: 13px;
+      font-size: clamp(28px, 2vw, 36px);
       color: var(--detect);
     }
 
-    #s11 .wc-sep {
+    #s14 .wc-sep {
       color: var(--ink3);
-      font-size: 14px;
-    }
-
-    /* ── S12: DETECT - HOW WE WORKED IT ── */
-    #s12 {
-      background: var(--cream);
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 8vw;
-    }
-
-    #s12 .before-after {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      max-width: 1100px;
-      width: 100%;
-    }
-
-    #s12 .ba-col {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    #s12 .ba-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 4px;
-    }
-
-    #s12 .ba-label.after {
-      color: var(--detect);
-    }
-
-    #s12 .ba-step {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 14px;
-      color: var(--ink2);
-      line-height: 1.4;
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    #s12 .ba-step.after-style {
-      border-color: rgba(217, 79, 42, 0.2);
-      background: rgba(217, 79, 42, 0.03);
-    }
-
-    #s12 .ba-step-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--ink3);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    #s12 .ba-step-num.detect-num {
-      color: var(--detect);
-    }
-
-    #s12 .ba-head {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 2vw, 28px);
-      font-weight: 700;
-      margin-bottom: 16px;
+      font-size: 28px;
     }
 
     /* ── S12a & S12b: DETECT - SEPARATE MOTIONS ── */
-    #s12a, #s12b {
+    #s15, #s16 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s12a .before-after, #s12b .before-after {
+    #s15 .before-after, #s16 .before-after {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       max-width: 1100px;
       width: 100%;
     }
 
-    #s12a .ba-col, #s12b .ba-col {
+    #s15 .ba-col, #s16 .ba-col {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    #s12a .ba-label, #s12b .ba-label {
+    #s15 .ba-label, #s16 .ba-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    #s12a .ba-label.after, #s12b .ba-label.after {
+    #s15 .ba-label.after, #s16 .ba-label.after {
       color: var(--detect);
     }
 
-    #s12a .ba-step, #s12b .ba-step {
+    #s15 .ba-step, #s16 .ba-step {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 14px;
+      padding: 18px 24px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink2);
       line-height: 1.4;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 16px;
     }
 
-    #s12a .ba-step.after-style, #s12b .ba-step.after-style {
+    #s15 .ba-step.after-style, #s16 .ba-step.after-style {
       border-color: rgba(217, 79, 42, 0.2);
       background: rgba(217, 79, 42, 0.03);
     }
 
-    #s12a .ba-step-num, #s12b .ba-step-num {
+    #s15 .ba-step-num, #s16 .ba-step-num {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       color: var(--ink3);
       flex-shrink: 0;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
-    #s12a .ba-step-num.detect-num, #s12b .ba-step-num.detect-num {
+    #s15 .ba-step-num.detect-num, #s16 .ba-step-num.detect-num {
       color: var(--detect);
     }
 
-    /* ── S13: DETECT - OUTPUT ── */
-    #s13 {
+    /* ── S17: DETECT - OUTPUT ── */
+    #s17 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s13 .output-head {
+    #s17 .output-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.15;
-      max-width: 820px;
-      margin-bottom: 32px;
+      max-width: 960px;
+      margin-bottom: 36px;
     }
 
-    #s13 .output-head em {
+    #s17 .output-head em {
       font-style: italic;
       color: var(--detect);
     }
 
-    #s13 .downstream {
+    #s17 .downstream {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      max-width: 760px;
+      gap: 12px;
+      max-width: 900px;
     }
 
-    #s13 .ds-item {
+    #s17 .ds-item {
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 14px 20px;
+      gap: 16px;
+      padding: 16px 24px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      font-size: clamp(13px, 1.4vw, 17px);
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink2);
     }
 
-    #s13 .ds-item .ds-dot {
+    #s17 .ds-item .ds-dot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
@@ -1197,221 +1194,14 @@
       flex-shrink: 0;
     }
 
-    /* ── S14: DECIDE INTRO ── */
-    #s14 {
+    /* ── S18: DECIDE INTRO ── */
+    #s18 {
       background: rgba(80, 71, 229, 0.04);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
       border-left: 4px solid var(--decide);
-    }
-
-    #s14 .layer-word {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(72px, 12vw, 160px);
-      font-weight: 900;
-      line-height: 0.9;
-      color: var(--decide);
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-    }
-
-    #s14 .layer-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--decide);
-      opacity: 0.7;
-      margin-bottom: 8px;
-    }
-
-    #s14 .layer-desc {
-      font-size: clamp(16px, 1.8vw, 24px);
-      color: var(--ink2);
-      max-width: 640px;
-      line-height: 1.5;
-    }
-
-    #s14 .layer-domain {
-      margin-top: 24px;
-      font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--decide);
-    }
-
-    /* ── S15: DECIDE - THE NOISE ── */
-    #s15 {
-      background: var(--cream);
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 8vw;
-    }
-
-    #s15 .noise-head {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
-      font-weight: 700;
-      line-height: 1.2;
-      max-width: 840px;
-      margin-bottom: 32px;
-    }
-
-    #s15 .thread-sim {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      max-width: 780px;
-    }
-
-    #s15 .msg {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-size: 13px;
-      color: var(--ink2);
-      line-height: 1.4;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    #s15 .msg-from {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--ink3);
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    #s15 .punchline {
-      margin-top: 16px;
-      font-size: clamp(14px, 1.5vw, 18px);
-      color: var(--ink3);
-      font-style: italic;
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* ── S16: DECIDE - THE REAL WORK ── */
-    #s16 {
-      background: var(--cream2);
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 10vw;
-    }
-
-    #s16 .q-head {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(20px, 2.4vw, 34px);
-      font-weight: 700;
-      max-width: 780px;
-      margin-bottom: 32px;
-      line-height: 1.2;
-    }
-
-    #s16 .q-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 780px;
-    }
-
-    #s16 .q-item {
-      font-size: clamp(14px, 1.5vw, 18px);
-      color: var(--ink2);
-      padding: 12px 20px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      line-height: 1.4;
-    }
-
-    #s16 .q-item strong {
-      color: var(--decide);
-      font-weight: 600;
-    }
-
-    /* ── S17: DECIDE - THE UNLOCK ── */
-    #s17 {
-      background: var(--cream);
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 8vw;
-    }
-
-    #s17 .unlock-head {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
-      font-weight: 700;
-      max-width: 820px;
-      margin-bottom: 32px;
-      line-height: 1.2;
-    }
-
-    #s17 .unlock-head em {
-      font-style: italic;
-      color: var(--decide);
-    }
-
-    #s17 .output-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 1000px;
-      width: 100%;
-    }
-
-    #s17 .out-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-
-    #s17 .out-card .oc-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-
-    #s17 .out-card .oc-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    #s17 .out-card .oc-sub {
-      font-size: 12px;
-      color: var(--ink3);
-      line-height: 1.4;
-    }
-
-    #s17 .cred-line {
-      margin-top: 28px;
-      font-size: clamp(14px, 1.5vw, 18px);
-      color: var(--ink2);
-      max-width: 820px;
-      line-height: 1.6;
-    }
-
-    #s17 .cred-line em {
-      font-style: italic;
-      color: var(--decide);
-    }
-
-    /* ── S18: DELIVER INTRO ── */
-    #s18 {
-      background: rgba(13, 158, 114, 0.04);
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 10vw;
-      border-left: 4px solid var(--deliver);
     }
 
     #s18 .layer-word {
@@ -1419,639 +1209,988 @@
       font-size: clamp(72px, 12vw, 160px);
       font-weight: 900;
       line-height: 0.9;
-      color: var(--deliver);
+      color: var(--decide);
       letter-spacing: -0.03em;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
     }
 
     #s18 .layer-num {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--deliver);
+      color: var(--decide);
       opacity: 0.7;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
     #s18 .layer-desc {
-      font-size: clamp(16px, 1.8vw, 24px);
+      font-size: clamp(48px, 3vw, 56px);
       color: var(--ink2);
-      max-width: 640px;
+      max-width: 760px;
       line-height: 1.5;
     }
 
     #s18 .layer-domain {
-      margin-top: 24px;
+      margin-top: 28px;
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--decide);
+    }
+
+    /* ── S19: DECIDE - THE NOISE ── */
+    #s19 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s19 .noise-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    #s19 .thread-sim {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 900px;
+    }
+
+    #s19 .msg {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 22px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.4;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    #s19 .msg-from {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    #s19 .punchline {
+      margin-top: 24px;
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink3);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── S20: DECIDE - THE REAL WORK ── */
+    #s20 {
+      background: var(--cream2);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s20 .q-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      max-width: 960px;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    #s20 .q-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 900px;
+    }
+
+    #s20 .q-item {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      padding: 16px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      line-height: 1.4;
+    }
+
+    #s20 .q-item strong {
+      color: var(--decide);
+      font-weight: 600;
+    }
+
+    /* ── S21: DECIDE - THE UNLOCK ── */
+    #s21 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s21 .unlock-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      max-width: 960px;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    #s21 .unlock-head em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    #s21 .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    #s21 .out-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+
+    #s21 .out-card .oc-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    #s21 .out-card .oc-title {
+      font-size: clamp(28px, 2vw, 36px);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    #s21 .out-card .oc-sub {
+      font-size: clamp(20px, 1.5vw, 26px);
+      color: var(--ink3);
+      line-height: 1.4;
+    }
+
+    #s21 .cred-line {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      max-width: 960px;
+      line-height: 1.6;
+    }
+
+    #s21 .cred-line em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    /* ── S22: DECIDE - THE OPERATING LAYER ── */
+    #s22 {
+      background: var(--ink);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      color: #F0EDE8;
+    }
+
+    #s22 .op-line {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+    }
+
+    #s22 .op-line em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    /* ── S23: DECIDE - CREDIBILITY SHIFT ── */
+    #s23 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s23 .cred-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    #s23 .cred-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #s23 .cred-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    #s23 .cred-tag.old { color: var(--ink3); }
+    #s23 .cred-tag.new { color: var(--decide); }
+
+    #s23 .cred-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 2.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    #s23 .cred-head.old { color: var(--ink3); }
+    #s23 .cred-head.new { color: var(--ink); }
+
+    #s23 .cred-item {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      line-height: 1.5;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    #s23 .cred-item::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--ink3);
+      opacity: 0.5;
+    }
+
+    #s23 .cred-item.live {
+      color: var(--ink2);
+    }
+
+    #s23 .cred-item.live::before {
+      color: var(--decide);
+      opacity: 1;
+    }
+
+    /* ── S24: DECIDE - THE END STATE ── */
+    #s24 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s24 .end-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--decide);
+      margin-bottom: 32px;
+    }
+
+    #s24 .outcome-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+    }
+
+    #s24 .outcome-item {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      line-height: 1.4;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    #s24 .outcome-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--decide);
+      opacity: 0.35;
+    }
+
+    #s24 .outcome-item.anchor {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink);
+      font-weight: 600;
+      margin-top: 6px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    #s24 .outcome-item.anchor::before {
+      opacity: 1;
+      top: 1.1em;
+    }
+
+    /* ── S25: DELIVER INTRO ── */
+    #s25 {
+      background: rgba(13, 158, 114, 0.04);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      border-left: 4px solid var(--deliver);
+    }
+
+    #s25 .layer-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 12vw, 160px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--deliver);
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    #s25 .layer-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--deliver);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+
+    #s25 .layer-desc {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    #s25 .layer-domain {
+      margin-top: 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--deliver);
     }
 
-    /* ── S19: DELIVER - THE PILE ── */
-    #s19 {
+    /* ── S26: DELIVER - THE PILE ── */
+    #s26 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s19 .pile-head {
+    #s26 .pile-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
       line-height: 1.2;
-      max-width: 820px;
-      margin-bottom: 28px;
+      max-width: 960px;
+      margin-bottom: 36px;
     }
 
-    #s19 .pile-items {
+    #s26 .pile-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      max-width: 860px;
+      gap: 12px;
+      max-width: 1000px;
     }
 
-    #s19 .pile-chip {
-      padding: 8px 16px;
+    #s26 .pile-chip {
+      padding: 12px 20px;
       background: var(--cream2);
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 13px;
+      font-size: clamp(28px, 2vw, 36px);
       color: var(--ink3);
     }
 
-    #s19 .pile-verdict {
-      margin-top: 28px;
-      font-size: clamp(16px, 1.8vw, 22px);
+    #s26 .pile-verdict {
+      margin-top: 32px;
+      font-size: clamp(48px, 3vw, 56px);
       font-family: 'Playfair Display', serif;
       font-style: italic;
       color: var(--ink2);
-      max-width: 780px;
+      max-width: 900px;
       line-height: 1.5;
     }
 
-    #s19 .pile-verdict strong {
+    #s26 .pile-verdict strong {
       font-style: normal;
       color: var(--ink);
     }
 
-    /* ── S20: DELIVER - PLACEHOLDER ── */
-    #s20 {
+    /* ── S27: DELIVER - PLACEHOLDER ── */
+    #s27 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       padding: 0 8vw;
+      padding-top: 8vh;
       gap: 28px;
       text-align: center;
     }
 
-    #s20 .ph-label {
+    #s27 .ph-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
     }
 
-    #s20 .ph-boxes {
+    #s27 .ph-boxes {
       display: flex;
-      gap: 24px;
-      align-items: center;
+      gap: 32px;
+      align-items: flex-end;
     }
 
-    #s20 .ph-box {
-      width: 280px;
-      height: 200px;
-      border: 2px dashed var(--border);
-      border-radius: 16px;
+    #s27 .ph-box {
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      gap: 14px;
     }
 
-    #s20 .ph-box .ph-icon {
-      font-size: 36px;
-      opacity: 0.35;
+    #s27 .ph-img {
+      width: clamp(220px, 22vw, 340px);
+      height: clamp(220px, 22vw, 340px);
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(28,26,46,0.12);
     }
 
-    #s20 .ph-box .ph-cap {
-      font-size: 12px;
+    #s27 .ph-box .ph-cap {
+      font-size: clamp(20px, 1.5vw, 26px);
       color: var(--ink3);
+      letter-spacing: 0.04em;
     }
 
-    #s20 .ph-vs {
+    #s27 .ph-vs {
       font-family: 'Playfair Display', serif;
       font-size: 28px;
       font-style: italic;
       color: var(--ink3);
     }
 
-    #s20 .ph-caption {
-      font-size: clamp(15px, 1.6vw, 20px);
+    #s27 .ph-caption {
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink2);
-      max-width: 620px;
+      max-width: 760px;
       line-height: 1.6;
     }
 
-    #s20 .ph-caption em {
+    #s27 .ph-caption em {
       font-style: italic;
       color: var(--deliver);
     }
 
-    /* ── S21: DELIVER - NEW WORKFLOW ── */
-    #s21 {
+    /* ── S28: DELIVER - NEW WORKFLOW ── */
+    #s28 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s21 .workflow-head {
+    #s28 .workflow-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(20px, 2.4vw, 34px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 700;
-      margin-bottom: 32px;
-      max-width: 780px;
+      margin-bottom: 36px;
+      max-width: 960px;
       line-height: 1.2;
     }
 
-    #s21 .wf-steps {
+    #s28 .wf-steps {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
-      max-width: 1100px;
+      max-width: 1200px;
     }
 
-    #s21 .wf-step {
+    #s28 .wf-step {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 13px;
+      padding: 18px 22px;
+      font-size: clamp(28px, 2vw, 36px);
       color: var(--ink2);
       line-height: 1.4;
       text-align: center;
     }
 
-    #s21 .wf-step.highlight {
-      background: rgba(13, 158, 114, 0.06);
-      border-color: rgba(13, 158, 114, 0.2);
-      color: var(--deliver);
-      font-weight: 500;
-    }
-
-    #s21 .wf-arrow {
+    #s28 .wf-arrow {
       color: var(--ink3);
-      font-size: 16px;
+      font-size: 24px;
       flex-shrink: 0;
     }
 
-    #s21 .infra-line {
-      margin-top: 28px;
-      font-size: clamp(16px, 1.8vw, 22px);
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: var(--deliver);
-      max-width: 760px;
-      line-height: 1.4;
+    #s28 .infra-line {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink);
+      max-width: 900px;
+      line-height: 1.6;
     }
 
-    /* ── S22: DELIVER - NEW SCOREBOARD ── */
-    #s22 {
+    /* ── S29: DELIVER - NEW SCOREBOARD ── */
+    #s29 {
       background: var(--cream);
       padding: 0 7vw;
+      padding-top: 8vh;
       gap: 28px;
+      align-items: flex-start;
     }
 
-    #s22 .sb-col {
+    #s29 .sb-col {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    #s22 .sb-label {
+    #s29 .sb-label {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
     }
 
-    #s22 .sb-label.new {
+    #s29 .sb-label.new {
       color: var(--deliver);
     }
 
-    #s22 .sb-item {
+    #s29 .sb-item {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 14px 18px;
-      font-size: clamp(13px, 1.3vw, 16px);
+      padding: 18px 22px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
       text-decoration: line-through;
       text-decoration-color: rgba(28, 26, 46, 0.2);
     }
 
-    #s22 .sb-item.new-style {
+    #s29 .sb-item.new-style {
       background: rgba(13, 158, 114, 0.04);
       border-color: rgba(13, 158, 114, 0.2);
       color: var(--ink);
       text-decoration: none;
     }
 
-    #s22 .divider-v {
+    #s29 .divider-v {
       width: 1px;
       background: var(--border);
       align-self: stretch;
       margin: 0 4px;
     }
 
-    /* ── S23: THE BIGGER PATTERN ── */
-    #s23 {
+    /* ── S30: THE BIGGER PATTERN ── */
+    #s30 {
       background: var(--ink);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       padding: 0 8vw;
+      padding-top: 8vh;
       color: #F0EDE8;
     }
 
-    #s23 .bp-head {
+    #s30 .bp-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(18px, 2vw, 28px);
+      font-size: clamp(36px, 2.5vw, 44px);
       font-weight: 400;
       color: rgba(240, 237, 232, 0.5);
       margin-bottom: 40px;
     }
 
-    #s23 .bp-three {
+    #s30 .bp-three {
       display: flex;
       align-items: center;
       gap: 16px;
       margin-bottom: 40px;
     }
 
-    #s23 .bp-item {
+    #s30 .bp-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 8px;
     }
 
-    #s23 .bp-word {
+    #s30 .bp-word {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 3vw, 42px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 900;
       letter-spacing: -0.01em;
     }
 
-    #s23 .bp-word.detect {
+    #s30 .bp-word.detect {
       color: var(--detect);
     }
 
-    #s23 .bp-word.decide {
+    #s30 .bp-word.decide {
       color: var(--decide);
     }
 
-    #s23 .bp-word.deliver {
+    #s30 .bp-word.deliver {
       color: var(--deliver);
     }
 
-    #s23 .bp-sub {
-      font-size: 12px;
+    #s30 .bp-sub {
+      font-size: 16px;
       color: rgba(240, 237, 232, 0.4);
       font-family: 'DM Mono', monospace;
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
 
-    #s23 .bp-arrow {
+    #s30 .bp-arrow {
       color: rgba(240, 237, 232, 0.25);
       font-size: 22px;
     }
 
-    #s23 .bp-punchline {
+    #s30 .bp-punchline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 3vw, 44px);
+      font-size: clamp(48px, 4vw, 72px);
       font-weight: 700;
       line-height: 1.2;
-      max-width: 760px;
+      max-width: 900px;
     }
 
-    #s23 .bp-punchline em {
+    #s30 .bp-punchline em {
       font-style: italic;
       color: var(--detect);
     }
 
-    /* ── S24: ORCHESTRATION LAYER ── */
-    #s24 {
+    /* ── S31: ORCHESTRATION LAYER ── */
+    #s31 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s24 .orch-head {
+    #s31 .orch-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 3.8vw, 58px);
+      font-size: clamp(56px, 5vw, 90px);
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -0.01em;
-      max-width: 880px;
-      margin-bottom: 32px;
+      max-width: 980px;
+      margin-bottom: 36px;
     }
 
-    #s24 .orch-head em {
+    #s31 .orch-head em {
       font-style: italic;
       color: var(--detect);
     }
 
-    #s24 .triggers {
+    #s31 .triggers {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      max-width: 880px;
+      gap: 12px;
+      max-width: 1000px;
     }
 
-    #s24 .trigger-chip {
-      padding: 8px 16px;
+    #s31 .trigger-chip {
+      padding: 12px 20px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 13px;
+      font-size: clamp(28px, 2vw, 36px);
       color: var(--ink2);
     }
 
-    #s24 .trigger-chip.active {
-      background: rgba(217, 79, 42, 0.06);
-      border-color: rgba(217, 79, 42, 0.2);
-      color: var(--detect);
-    }
-
-    #s24 .orch-sub {
-      margin-top: 24px;
-      font-size: clamp(14px, 1.5vw, 18px);
+    #s31 .orch-sub {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
-      max-width: 760px;
+      max-width: 900px;
       line-height: 1.6;
     }
 
-    #s24 .orch-sub strong {
+    #s31 .orch-sub strong {
       color: var(--ink);
       font-weight: 600;
     }
 
-    /* ── S25: COMPOUNDING ── */
-    #s25 {
+    /* ── S32: COMPOUNDING ── */
+    #s32 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s25 .comp-head {
+    #s32 .comp-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 3vw, 46px);
+      font-size: clamp(48px, 4vw, 72px);
       font-weight: 900;
       line-height: 1.1;
       letter-spacing: -0.01em;
-      max-width: 820px;
-      margin-bottom: 32px;
+      max-width: 960px;
+      margin-bottom: 36px;
     }
 
-    #s25 .comp-old {
-      font-size: clamp(15px, 1.6vw, 20px);
+    #s32 .comp-old {
+      font-size: clamp(36px, 2.5vw, 44px);
       color: var(--ink3);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       font-style: italic;
       font-family: 'Playfair Display', serif;
     }
 
-    #s25 .comp-grid {
+    #s32 .comp-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      max-width: 1000px;
+      gap: 24px;
+      max-width: 1100px;
     }
 
-    #s25 .comp-card {
+    #s32 .comp-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 20px 22px;
+      padding: 24px 28px;
     }
 
-    #s25 .comp-card .cc-q {
-      font-size: 13px;
+    #s32 .comp-card .cc-q {
+      font-size: clamp(20px, 1.5vw, 26px);
       color: var(--ink3);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       font-style: italic;
     }
 
-    #s25 .comp-card .cc-a {
-      font-size: 14px;
+    #s32 .comp-card .cc-a {
+      font-size: clamp(22px, 1.6vw, 28px);
       color: var(--ink);
       font-weight: 500;
       line-height: 1.4;
     }
 
-    /* ── S26: WHAT IT TAKES ── */
-    #s26 {
+    /* ── S33: WHAT IT TAKES ── */
+    #s33 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 8vw;
+      padding-top: 8vh;
     }
 
-    #s26 .wit-head {
+    #s33 .wit-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 38px);
+      font-size: clamp(48px, 4vw, 72px);
       font-weight: 700;
-      max-width: 780px;
-      margin-bottom: 36px;
+      max-width: 960px;
+      margin-bottom: 40px;
       line-height: 1.2;
     }
 
-    #s26 .three-reqs {
+    #s33 .three-reqs {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      max-width: 1000px;
+      gap: 20px;
+      max-width: 1100px;
       width: 100%;
     }
 
-    #s26 .req-card {
+    #s33 .req-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 28px 24px;
+      padding: 36px 32px;
     }
 
-    #s26 .req-num {
+    #s33 .req-num {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    #s26 .req-title {
+    #s33 .req-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(20px, 2.2vw, 30px);
+      font-size: clamp(36px, 2.5vw, 48px);
       font-weight: 900;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       letter-spacing: -0.01em;
     }
 
-    #s26 .req-title.detect {
-      color: var(--detect);
-    }
-
-    #s26 .req-title.decide {
-      color: var(--decide);
-    }
-
-    #s26 .req-title.deliver {
-      color: var(--deliver);
-    }
-
-    #s26 .req-body {
-      font-size: clamp(13px, 1.3vw, 15px);
+    #s33 .req-body {
+      font-size: clamp(28px, 2vw, 36px);
       color: var(--ink3);
       line-height: 1.55;
     }
 
-    /* ── S27: CLOSE ── */
-    #s27 {
+    /* ── S34: CLOSE ── */
+    #s34 {
       background: var(--ink);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 0 10vw;
+      padding-top: 8vh;
       color: #F0EDE8;
     }
 
-    #s27 .close-label {
+    #s34 .close-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: rgba(240, 237, 232, 0.35);
-      margin-bottom: 28px;
+      margin-bottom: 36px;
     }
 
-    #s27 .close-head {
+    #s34 .close-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5.5vw, 84px);
+      font-size: clamp(56px, 6vw, 100px);
       font-weight: 900;
       line-height: 1.0;
       letter-spacing: -0.02em;
-      max-width: 900px;
-      margin-bottom: 32px;
+      max-width: 980px;
+      margin-bottom: 40px;
     }
 
-    #s27 .close-head em {
+    #s34 .close-head em {
       font-style: italic;
       color: var(--detect);
     }
 
-    #s27 .close-list {
+    #s34 .close-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 14px;
     }
 
-    #s27 .cl-item {
-      font-size: clamp(14px, 1.5vw, 19px);
+    #s34 .cl-item {
+      font-size: clamp(36px, 2.5vw, 44px);
       color: rgba(240, 237, 232, 0.65);
       line-height: 1.4;
-      padding-left: 20px;
+      padding-left: 28px;
       position: relative;
     }
 
-    #s27 .cl-item::before {
+    #s34 .cl-item::before {
       content: '→';
       position: absolute;
       left: 0;
       color: rgba(240, 237, 232, 0.25);
     }
 
-    /* ── S28: FINAL CTA ── */
-    #s28 {
+    /* ── S35: FINAL CTA ── */
+    #s35 {
       background: var(--cream);
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       padding: 0 10vw;
+      padding-top: 8vh;
     }
 
-    #s28 .final-q {
+    #s35 .final-q {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(38px, 6vw, 92px);
+      font-size: clamp(72px, 7vw, 120px);
       font-weight: 900;
       line-height: 1.0;
       letter-spacing: -0.02em;
-      max-width: 900px;
-      margin-bottom: 36px;
+      max-width: 980px;
+      margin-bottom: 40px;
     }
 
-    #s28 .final-q em {
+    #s35 .final-q em {
       font-style: italic;
       color: var(--detect);
     }
 
-    #s28 .byline {
+    #s35 .byline {
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 20px;
       color: var(--ink3);
       letter-spacing: 0.08em;
     }
 
-    #s28 .byline strong {
+    #s35 .byline strong {
       color: var(--ink2);
       font-weight: 500;
     }
 
-    #s28 .frame-chips {
+    #s35 .frame-chips {
       display: flex;
       gap: 12px;
       justify-content: center;
       margin-top: 36px;
     }
 
-    #s28 .fc-chip {
-      padding: 8px 20px;
+    #s35 .fc-chip {
+      padding: 10px 22px;
       border-radius: 100px;
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
-    #s28 .fc-chip.detect {
+    #s35 .fc-chip.detect {
       background: rgba(217, 79, 42, 0.08);
       border: 1px solid rgba(217, 79, 42, 0.2);
       color: var(--detect);
     }
 
-    #s28 .fc-chip.decide {
+    #s35 .fc-chip.decide {
       background: rgba(80, 71, 229, 0.08);
       border: 1px solid rgba(80, 71, 229, 0.2);
       color: var(--decide);
     }
 
-    #s28 .fc-chip.deliver {
+    #s35 .fc-chip.deliver {
       background: rgba(13, 158, 114, 0.08);
       border: 1px solid rgba(13, 158, 114, 0.2);
       color: var(--deliver);
@@ -2062,7 +2201,7 @@
 <body>
 
   <div class="cursor" id="cursor"></div>
-  <div id="slide-num">01 / 29</div>
+  <div id="slide-num">01 / 35</div>
   <div id="progress"></div>
 
   <div id="stage">
@@ -2114,12 +2253,12 @@
     </div>
 
     <!-- S4a: THE REAL QUESTION - light slide -->
-    <div class="scene" id="s4a">
+    <div class="scene" id="s5">
         <div class="big-stmt r d1">How do I do the same work more efficiently?</div>
     </div>
 
-    <!-- S4b: THE REAL QUESTION - dark slide -->
-    <div class="scene" id="s4">
+    <!-- S6: THE REAL QUESTION - dark slide -->
+    <div class="scene" id="s6">
       <div style="max-width:900px; padding: 0 10vw; width:100%;">
         <div class="old-q r d1">How do I do the same work more efficiently?</div>
         <div class="new-q r d2">If research, synthesis, drafting, and orchestration are suddenly much <em>cheaper</em> —
@@ -2127,47 +2266,41 @@
       </div>
     </div>
 
-    <!-- S5: REFRAME - side by side -->
-    <div class="scene" id="s5" style="padding: 0 7vw; gap: 20px;">
-      <div class="col r d1">
-        <div class="col-label old">AI as acceleration</div>
-        <div>Take apart existing workflow <br> → insert AI at various points <br>→ make it more efficient</div>
-        <ul style="margin: 12px 0; padding-left: 20px;">
-          <li>Write the email <i>faster</i></li>
-          <li>Summarize the notes <i>faster</i></li>
-          <li>Draft the deck <i>faster</i></li>
-          <li>Analyze a spreadsheet <i>faster</i></li>
-        </ul>
+    <!-- S7: REFRAME - side by side -->
+    <div class="scene" id="s7" style="padding: 8vh 7vw 4vh; gap: 20px;">
+      <div class="col">
+        <div class="col-label old" data-step="1">AI as acceleration</div>
+        <div data-step="1">Take apart existing workflow <br> → insert AI at various points <br>→ make it more efficient</div>
       </div>
-      <div class="vs-div r d2">
+      <div class="vs-div" data-step="1">
         <div class="vs-line"></div>
         <div class="vs-label">VS</div>
         <div class="vs-line"></div>
       </div>
-      <div class="col r d3">
+      <div class="col" data-step="3">
         <div class="col-label new">AI-native</div>
         <div class="col-card new-style"><strong>Start with the outcome you want</strong></div>
         <div class="col-card new-style">Not "where did we save time?" but <br> <strong>"what work is now possible?"</strong></div>
       </div>
     </div>
 
-    <!-- S6: THE THREE-LAYER FRAME -->
-    <div class="scene" id="s6">
+    <!-- S8: THE THREE-LAYER FRAME -->
+    <div class="scene" id="s8">
       <div class="frame-title r d1">AI-native customer marketing has <br> three primary components.</div>
-      <div class="three-cols r d2">
-        <div class="frame-col detect">
+      <div class="three-cols">
+        <div class="frame-col detect" data-step="1">
           <div class="fc-num detect">01</div>
           <div class="fc-word detect">Detect</div>
           <div class="fc-sub">What is actually happening with your customers and their adoption?</div>
           <div class="fc-domain detect">Research</div>
         </div>
-        <div class="frame-col decide">
+        <div class="frame-col decide" data-step="2">
           <div class="fc-num decide">02</div>
           <div class="fc-word decide">Decide</div>
           <div class="fc-sub">What should happen next? Structured decision support over scattered asks.</div>
           <div class="fc-domain decide">Adoption</div>
         </div>
-        <div class="frame-col deliver">
+        <div class="frame-col deliver" data-step="3">
           <div class="fc-num deliver">03</div>
           <div class="fc-word deliver">Deliver</div>
           <div class="fc-sub">The right intervention, at scale, without manual heroics.</div>
@@ -2176,8 +2309,8 @@
       </div>
     </div>
 
-    <!-- S7: WHY CM - STRUCTURAL PROBLEM -->
-    <div class="scene" id="s7">
+    <!-- S9: WHY CM - STRUCTURAL PROBLEM -->
+    <div class="scene" id="s9">
       <div style="max-width:900px; padding: 0 10vw; width:100%;">
         <div class="eyebrow r d1">Why me?</div>
         <div class="big-line r d2">We sit on top of a huge amount of signal, but very little of it arrives in a form we
@@ -2192,20 +2325,20 @@
     </div>
 
     <!-- S7b: SPIDERMAN GIF -->
-    <div class="scene" id="s7b" style="padding: 0; display: flex; align-items: center; justify-content: center;">
+    <div class="scene" id="s10" style="padding: 0; display: flex; align-items: center; justify-content: center;">
       <img src="Spider_Man_Homecoming_2017_Ferry_Fight_Scene_5_10_Movieclips.gif" alt="Spider-Man gif" style="width: 100%; height: 100%; object-fit: cover;">
     </div>
 
-    <!-- S8: HUSTLE -->
-    <div class="scene" id="s8">
+    <!-- S11: HUSTLE -->
+    <div class="scene" id="s11">
       <div style="max-width:900px; padding: 0 10vw; width:100%;">
         <div class="big-line r d2">A smart team can make a broken system look functional for a surprisingly <em>long time</em>
           .</div>
       </div>
     </div>
 
-    <!-- S9: THE SHIFT -->
-    <div class="scene" id="s9">
+    <!-- S12: THE SHIFT -->
+    <div class="scene" id="s12">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="shift-intro r d1">AI changed how much
           fragmentation we can collapse.</div>
@@ -2229,8 +2362,8 @@
       </div>
     </div>
 
-    <!-- S10: DETECT INTRO -->
-    <div class="scene" id="s10">
+    <!-- S13: DETECT INTRO -->
+    <div class="scene" id="s13">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-intro-num r d1">Layer 01 — Research</div>
         <div class="layer-word r d2">Detect</div>
@@ -2240,8 +2373,8 @@
       </div>
     </div>
 
-    <!-- S11: DETECT - POWER USER PROBLEM -->
-    <div class="scene" id="s11">
+    <!-- S14: DETECT - POWER USER PROBLEM -->
+    <div class="scene" id="s14">
       <div style="max-width:900px; padding: 0 8vw; width:100%;">
         <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
         <div class="def-card r d3">
@@ -2252,55 +2385,48 @@
     </div>
 
     <!-- S12a: DETECT - OLD MOTION -->
-    <div class="scene" id="s12a">
+    <div class="scene" id="s15">
       <div style="max-width:1100px; padding: 0 8vw; width:100%;">
         <div class="before-after r d2">
           <div class="ba-col">
             <div class="ba-label">Before: the old motion</div>
-            <div class="ba-step"><span class="ba-step-num">1</span>Remember whether anyone studied this before</div>
-            <div class="ba-step"><span class="ba-step-num">2</span>Ask around. Find a stale deck.</div>
-            <div class="ba-step"><span class="ba-step-num">3</span>Realize the original question was too broad</div>
-            <div class="ba-step"><span class="ba-step-num">4</span>Wait — the data scientist is on vacation</div>
-            <div class="ba-step"><span class="ba-step-num">5</span>Weeks later: receive a large Excel file</div>
+            <div class="ba-step"><span class="ba-step-num">1</span>Ask around. Find a stale deck.</div>
+            <div class="ba-step"><span class="ba-step-num">2</span>Wait — the data scientist is on vacation</div>
+            <div class="ba-step"><span class="ba-step-num">3</span>Weeks later: receive a large Excel file</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- S12b: DETECT - NEW MOTION -->
-    <div class="scene" id="s12b">
+    <div class="scene" id="s16">
       <div style="max-width:1100px; padding: 0 8vw; width:100%;">
         <div class="before-after r d2">
           <div class="ba-col">
             <div class="ba-label after">After: a living intelligence problem</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">1</span>Surface prior analyses instantly</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">2</span>Pull up related thinking that already exists inside the company</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">3</span>Refine the question and accelerate query work</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">4</span>Keep interrogating the answer — not just first pass</div>
-            <div class="ba-step after-style"><span class="ba-step-num detect-num">5</span><strong>Treat the question dynamically until the concept itself gets smarter</strong></div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">1</span>Glean surfaces prior analyses instantly</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">2</span>Refine the question and accelerate query work</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">3</span><strong>Treat the question dynamically until the concept itself gets smarter</strong></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- S13: DETECT - OUTPUT -->
-    <div class="scene" id="s13">
+    <!-- S17: DETECT - OUTPUT -->
+    <div class="scene" id="s17">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
         <div class="output-head r d2"> The <em>foundational concept </em> aka our maturity framework got smarter so everything downstream improved.</div>
         <div class="downstream r d3">
           <div class="ds-item"><span class="ds-dot"></span>Segmentation became more meaningful</div>
-          <div class="ds-item"><span class="ds-dot"></span>Education strategy tied to actual maturity steps</div>
           <div class="ds-item"><span class="ds-dot"></span>"Who should we nudge?" decisions became more grounded</div>
-          <div class="ds-item"><span class="ds-dot"></span>Expansion thinking became less anecdotal</div>
-          <div class="ds-item"><span class="ds-dot"></span>Research became a live operating input, not a quarterly
-            readout</div>
+          <div class="ds-item"><span class="ds-dot"></span>Research became a live operating input, not a quarterly readout</div>
         </div>
       </div>
     </div>
 
-    <!-- S14: DECIDE INTRO -->
-    <div class="scene" id="s14">
+    <!-- S18: DECIDE INTRO -->
+    <div class="scene" id="s18">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-num r d1">Layer 02 — Operations</div>
         <div class="layer-word r d2">Decide</div>
@@ -2310,25 +2436,22 @@
       </div>
     </div>
 
-    <!-- S15: DECIDE - THE NOISE -->
-    <div class="scene" id="s15">
+    <!-- S19: DECIDE - THE NOISE -->
+    <div class="scene" id="s19">
       <div style="max-width:860px; padding: 0 8vw; width:100%;">
         <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
         <div class="noise-head r d2">What you actually receive is not a brief. It is fragments.</div>
         <div class="thread-sim r d3">
-          <div class="msg"><span class="msg-from">CS Note</span>A certain cohort is not adopting the new workflow
-            feature...</div>
+          <div class="msg"><span class="msg-from">CS Note</span>A certain cohort is not adopting the new workflow feature...</div>
           <div class="msg"><span class="msg-from">Slack</span>quick question — should we build content for this?</div>
-          <div class="msg"><span class="msg-from">PM</span>maybe this is actually an onboarding issue?</div>
-          <div class="msg"><span class="msg-from">Support</span>we're seeing a pattern in tickets around this too</div>
           <div class="msg"><span class="msg-from">Sales</span>can we get a quick recommendation before Thursday?</div>
         </div>
         <div class="punchline r d4">At that point, the real work is not content. The real work is sense-making.</div>
       </div>
     </div>
 
-    <!-- S16: DECIDE - THE REAL WORK -->
-    <div class="scene" id="s16">
+    <!-- S20: DECIDE - THE REAL WORK -->
+    <div class="scene" id="s20">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
         <div class="q-head r d2">The interpretive questions that someone has to answer before anything useful can
@@ -2343,8 +2466,8 @@
       </div>
     </div>
 
-    <!-- S17: DECIDE - THE UNLOCK -->
-    <div class="scene" id="s17">
+    <!-- S21: DECIDE - THE UNLOCK -->
+    <div class="scene" id="s21">
       <div style="max-width:1000px; padding: 0 8vw; width:100%;">
         <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
         <div class="unlock-head r d2">Glean didn't give us a clever paragraph, it gave us <em>structure.</em></div>
@@ -2354,32 +2477,63 @@
             <div class="oc-title">Summary of decisions</div>
           </div>
           <div class="out-card">
-            <div class="oc-icon">👤</div>
-            <div class="oc-title">Owners</div>
-          </div>
-          <div class="out-card">
             <div class="oc-icon">❓</div>
             <div class="oc-title">Open questions</div>
-          </div>
-          <div class="out-card">
-            <div class="oc-icon">⚠️</div>
-            <div class="oc-title">Risks</div>
           </div>
           <div class="out-card">
             <div class="oc-icon">🎯</div>
             <div class="oc-title">Next steps</div>
           </div>
-          <div class="out-card">
-            <div class="oc-icon">📊</div>
-            <div class="oc-title">Asks for leadership</div>
-          </div>
         </div>
-        <div class="cred-line r d4">You start building an <em>operating system</em> so your team can <strong>reduce confusion</strong>, not just absorb it.</div>
       </div>
     </div>
 
-    <!-- S18: DELIVER INTRO -->
-    <div class="scene" id="s18">
+    <!-- S22: DECIDE - THE OPERATING LAYER -->
+    <div class="scene" id="s22">
+      <div style="max-width:920px; padding: 0 10vw; width:100%;">
+        <div class="op-line r d1">No longer just responding to whoever <em>pinged last.</em></div>
+        <div class="op-line r d2" style="margin-top: 28px;">Building an <em>operating layer.</em></div>
+      </div>
+    </div>
+
+    <!-- S23: DECIDE - CREDIBILITY SHIFT -->
+    <div class="scene" id="s23">
+      <div style="max-width:1000px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="cred-cols r d2">
+          <div class="cred-col">
+            <div class="cred-tag old">Before</div>
+            <div class="cred-head old">Creative credibility</div>
+            <div class="cred-item">We make great content</div>
+            <div class="cred-item">We tell good stories</div>
+            <div class="cred-item">We package information well</div>
+          </div>
+          <div class="cred-col">
+            <div class="cred-tag new">After</div>
+            <div class="cred-head new">Operational credibility</div>
+            <div class="cred-item live">We reduce confusion for the business</div>
+            <div class="cred-item live">We make the work clearer for everyone</div>
+            <div class="cred-item live">We influence outcomes, not just package them</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S24: DECIDE - THE END STATE -->
+    <div class="scene" id="s24">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="end-label r d2">The end state</div>
+        <div class="outcome-list r d3">
+          <div class="outcome-item">Faster triage</div>
+          <div class="outcome-item">Less reactive thrash</div>
+          <div class="outcome-item anchor">A customer marketing team that influences outcomes instead of just absorbs requests</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S25: DELIVER INTRO -->
+    <div class="scene" id="s25">
       <div style="max-width:860px; padding: 0 10vw; width:100%;">
         <div class="layer-num r d1">Layer 03 — Education</div>
         <div class="layer-word r d2">Deliver</div>
@@ -2388,37 +2542,35 @@
       </div>
     </div>
 
-    <!-- S19: DELIVER - THE PILE -->
-    <div class="scene" id="s19">
+    <!-- S26: DELIVER - THE PILE -->
+    <div class="scene" id="s26">
       <div style="max-width:880px; padding: 0 8vw; width:100%;">
         <div class="layer-tag deliver r d1"><span class="dot"></span>Deliver layer</div>
         <div class="pile-head r d2">We had accumulated a lot of helpful content in unhelpful formats.</div>
         <div class="pile-items r d3">
           <span class="pile-chip">Videos somewhere in Drive</span>
           <span class="pile-chip">Docs nobody can find</span>
-          <span class="pile-chip">Links in spreadsheets</span>
-          <span class="pile-chip">Tribal knowledge in CSMs' heads</span>
+<span class="pile-chip">Tribal knowledge in CSMs' heads</span>
           <span class="pile-chip">Internal recordings</span>
           <span class="pile-chip">Ad hoc walkthroughs</span>
           <span class="pile-chip">A Google Sheet with ~100 Loom links</span>
           <span class="pile-chip">Looms that might be outdated</span>
           <span class="pile-chip">Partridge in a pear tree</span>
         </div>
-        <div class="pile-verdict r d4">That is an evidence locker where videos go to die.</div>
       </div>
     </div>
 
-    <!-- S20: DELIVER - PLACEHOLDER SLIDE -->
-    <div class="scene" id="s20">
+    <!-- S27: DELIVER - PLACEHOLDER SLIDE -->
+    <div class="scene" id="s27">
       <div class="ph-label r d1">Deliver layer · the paradigm shift</div>
       <div class="ph-boxes r d2">
         <div class="ph-box">
-          <div class="ph-icon">🧀</div>
+          <img src="jonah-white-light.webp" alt="Ice sculpture" class="ph-img">
           <div class="ph-cap">Artisanal content production</div>
         </div>
         <div class="ph-vs">vs</div>
         <div class="ph-box">
-          <div class="ph-icon">🏭</div>
+          <img src="bag-of-ice.webp" alt="Bag of ice" class="ph-img">
           <div class="ph-cap">Education infrastructure</div>
         </div>
       </div>
@@ -2426,52 +2578,45 @@
         scales in a way that artisanal production never can.</div>
     </div>
 
-    <!-- S21: DELIVER - NEW WORKFLOW -->
-    <div class="scene" id="s21">
+    <!-- S28: DELIVER - NEW WORKFLOW -->
+    <div class="scene" id="s28">
       <div style="max-width:1100px; padding: 0 8vw; width:100%;">
         <div class="layer-tag deliver r d1"><span class="dot"></span>Deliver layer</div>
         <div class="workflow-head r d2">The new workflow: record once, compound forever.</div>
         <div class="wf-steps r d3">
           <div class="wf-step">Expert records raw explanation</div>
           <div class="wf-arrow">→</div>
-          <div class="wf-step highlight">AI cleans, structures, re-voices</div>
+          <div class="wf-step">AI cleans, structures, re-voices</div>
           <div class="wf-arrow">→</div>
-          <div class="wf-step highlight">Timestamps, metadata, search</div>
+          <div class="wf-step">Timestamps, metadata, search</div>
           <div class="wf-arrow">→</div>
-          <div class="wf-step highlight">Becomes a reusable learning object</div>
+          <div class="wf-step">Becomes a reusable learning object</div>
           <div class="wf-arrow">→</div>
           <div class="wf-step">Part of a system — not a one-off artifact</div>
         </div>
-        <div class="infra-line r d4">"Your CSMs and internal experts do not need to become polished content producers.
-          They need to become high-signal inputs and quality reviewers."</div>
       </div>
     </div>
 
-    <!-- S22: DELIVER - NEW SCOREBOARD -->
-    <div class="scene" id="s22" style="padding: 0 7vw; gap: 20px; align-items: stretch;">
-      <div class="sb-col r d1">
+    <!-- S29: DELIVER - NEW SCOREBOARD -->
+    <div class="scene" id="s29" style="padding: 8vh 7vw 4vh; gap: 20px;">
+      <div class="sb-col" data-step="1">
         <div class="sb-label">Old scoreboard</div>
         <div class="sb-item">How many webinars did we run?</div>
         <div class="sb-item">How many docs did we publish?</div>
-        <div class="sb-item">How many courses did we launch?</div>
         <div class="sb-item">How many videos did we create?</div>
       </div>
-      <div class="divider-v r d2"></div>
-      <div class="sb-col r d3">
+      <div class="divider-v" data-step="1"></div>
+      <div class="sb-col" data-step="2">
         <div class="sb-label new">Better scoreboard</div>
         <div class="sb-item new-style">How searchable is our knowledge?</div>
         <div class="sb-item new-style">How reusable is our learning?</div>
         <div class="sb-item new-style">How quickly can we convert raw expertise into trustworthy education?</div>
-        <div class="sb-item new-style">How much less does this system depend on a particular person remembering where
-          something lives?</div>
       </div>
     </div>
 
-    <!-- S23: THE BIGGER PATTERN - dark -->
-    <div class="scene" id="s23">
-      <div class="bp-head r d1">In each case, the workflow got better. But more importantly, the business outcome got
-        clearer.</div>
-      <div class="bp-three r d2">
+    <!-- S30: THE BIGGER PATTERN - dark -->
+    <div class="scene" id="s30">
+      <div class="bp-three r d1">
         <div class="bp-item">
           <div class="bp-word detect">Detect</div>
           <div class="bp-sub">better maturity detection</div>
@@ -2487,120 +2632,89 @@
           <div class="bp-sub">faster time-to-value</div>
         </div>
       </div>
-      <div class="bp-punchline r d3">Customer marketing starts to look less like a content function and more like an
+      <div class="bp-punchline r d2">Customer marketing starts to look less like a content function and more like an
         <em>orchestration layer.</em></div>
     </div>
 
-    <!-- S24: ORCHESTRATION LAYER - TRIGGERS -->
-    <div class="scene" id="s24">
+    <!-- S31: ORCHESTRATION LAYER - TRIGGERS -->
+    <div class="scene" id="s31">
       <div style="max-width:920px; padding: 0 10vw; width:100%;">
         <div class="eyebrow r d1">The orchestration layer</div>
         <div class="orch-head r d2">These are not just analytics observations.<br>They are <em>triggers.</em></div>
         <div class="triggers r d3">
-          <span class="trigger-chip active">Customer adopts a feature</span>
+          <span class="trigger-chip">Customer adopts a feature</span>
           <span class="trigger-chip">Admin stalls</span>
-          <span class="trigger-chip active">Champion shows unusual engagement</span>
+          <span class="trigger-chip">Champion shows unusual engagement</span>
           <span class="trigger-chip">Region is lagging</span>
-          <span class="trigger-chip active">A use case is taking off</span>
+          <span class="trigger-chip">A use case is taking off</span>
           <span class="trigger-chip">New feature lands, intended audience not moving</span>
-          <span class="trigger-chip active">Expansion signal detected</span>
+          <span class="trigger-chip">Expansion signal detected</span>
         </div>
-        <div class="orch-sub r d4">Each trigger drives a different kind of response: <strong>education, outreach, proof
-            collection, executive communication, in-product nudges, community moments, expansion motion.</strong>
-          Customer marketing becomes the team that connects signal to action.</div>
       </div>
     </div>
 
-    <!-- S25: COMPOUNDING -->
-    <div class="scene" id="s25">
+    <!-- S32: COMPOUNDING -->
+    <div class="scene" id="s32">
       <div style="max-width:1000px; padding: 0 8vw; width:100%;">
         <div class="eyebrow r d1">The compounding effect</div>
         <div class="comp-head r d2">In the old model, the team gets credit for heroics. In the new model, you build
           systems that get smarter over time.</div>
-        <div class="comp-grid r d3">
-          <div class="comp-card">
+        <div class="comp-grid">
+          <div class="comp-card" data-step="1">
             <div class="cc-q">Did we ship something good?</div>
             <div class="cc-a">→ Did we build a system that makes the next thing easier?</div>
           </div>
-          <div class="comp-card">
+          <div class="comp-card" data-step="1">
             <div class="cc-q">Did we create enough content?</div>
             <div class="cc-a">→ Did we reduce dependency on tribal knowledge?</div>
           </div>
-          <div class="comp-card">
+          <div class="comp-card" data-step="1">
             <div class="cc-q">Did we answer the ask?</div>
             <div class="cc-a">→ Did we convert recurring chaos into a standard operating pattern?</div>
           </div>
-          <div class="comp-card">
-            <div class="cc-q">Did we run the webinar?</div>
-            <div class="cc-a">→ Did we make a core definition smarter?</div>
-          </div>
-          <div class="comp-card">
-            <div class="cc-q">Did we hit the deadline?</div>
-            <div class="cc-a">→ Did we make it easier for the next person to do good work?</div>
-          </div>
-          <div class="comp-card">
-            <div class="cc-q">Did we save the account?</div>
-            <div class="cc-a">→ Did we make a learning asset more reusable?</div>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- S26: WHAT IT TAKES -->
-    <div class="scene" id="s26">
+    <!-- S33: WHAT IT TAKES -->
+    <div class="scene" id="s33">
       <div style="max-width:1020px; padding: 0 8vw; width:100%;">
         <div class="wit-head r d1">None of this happens just because you bought an AI tool. You need three things.</div>
-        <div class="three-reqs r d2">
-          <div class="req-card">
+        <div class="three-reqs">
+          <div class="req-card" data-step="1">
             <div class="req-num">01</div>
-            <div class="req-title detect">Instrumentation</div>
-            <div class="req-body">If your data and signals are a mess, AI will help you produce polished confusion
-              faster. The output can look sophisticated. But if the underlying inputs are weak, the result is just more
-              articulate confusion.</div>
+            <div class="req-title">Instrumentation</div>
+            <div class="req-body">If your inputs are weak, AI just produces more articulate confusion.</div>
           </div>
-          <div class="req-card">
+          <div class="req-card" data-step="2">
             <div class="req-num">02</div>
-            <div class="req-title decide">Judgment</div>
-            <div class="req-body">You still need humans who know what good is, what a useful brief looks like, and what
-              should never be automated. AI can help you generate options. It cannot own the standard of quality. That
-              is still our job.</div>
+            <div class="req-title">Judgment</div>
+            <div class="req-body">AI generates options. It cannot own the standard of quality — that is still our job.</div>
           </div>
-          <div class="req-card">
+          <div class="req-card" data-step="3">
             <div class="req-num">03</div>
-            <div class="req-title deliver">Systems thinking</div>
-            <div class="req-body">If you only use AI as a one-off assistant, you will get one-off gains. If you use it
-              to redesign the flow of work, you get a function that scales exponentially. That is the real shift.</div>
+            <div class="req-title">Systems thinking</div>
+            <div class="req-body">One-off AI use gets one-off gains. Redesign the flow of work and the function scales.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- S27: CLOSE - dark -->
-    <div class="scene" id="s27">
+    <!-- S34: CLOSE - dark -->
+    <div class="scene" id="s34">
       <div style="max-width:900px; padding: 0 10vw; width:100%;">
         <div class="close-label r d1">The idea I want to leave you with</div>
-        <div class="close-head r d2">The most interesting use of AI in customer marketing is not <em>acceleration.</em>
-          It is redesign.</div>
-        <div class="close-list r d3">
-          <div class="cl-item">Hustle → systems</div>
-          <div class="cl-item">Reactive service work → signal-driven orchestration</div>
-          <div class="cl-item">Isolated assets → compounding leverage</div>
-          <div class="cl-item">Content team → the team that shapes how adoption and expansion actually happen</div>
-        </div>
+        <div class="close-head r d2">The most interesting use of AI in customer marketing is not acceleration.
+          It is <em>redesign.</em></div>
+
       </div>
     </div>
 
-    <!-- S28: FINAL CTA -->
-    <div class="scene" id="s28">
-      <span class="bg-word"
-        style="font-size:clamp(60px,10vw,160px); -webkit-text-stroke: 1px rgba(28,26,46,0.04);">redesign</span>
+    <!-- S35: FINAL CTA -->
+    <div class="scene" id="s35">
       <div class="final-q r d1">We are still<br>very <em>early.</em><br>Who's in?</div>
       <div class="byline r d2"><strong>Sandhya Simhan</strong> · Head of Customer Marketing, Glean</div>
-      <div class="frame-chips r d3">
-        <span class="fc-chip detect">Detect</span>
-        <span class="fc-chip decide">Decide</span>
-        <span class="fc-chip deliver">Deliver</span>
-      </div>
+
     </div>
 
   </div><!-- /stage -->
@@ -2610,25 +2724,64 @@
       const scenes = Array.from(document.querySelectorAll('.scene'));
       const total = scenes.length;
       let cur = 0;
+      let curStep = 0;
 
       const numEl = document.getElementById('slide-num');
       const prog = document.getElementById('progress');
 
       function pad(n) { return String(n).padStart(2, '0'); }
 
+      function getMaxStep(sceneEl) {
+        let max = 0;
+        sceneEl.querySelectorAll('[data-step]').forEach(function (el) {
+          const n = parseInt(el.dataset.step, 10);
+          if (n > max) max = n;
+        });
+        return max;
+      }
+
+      function applySteps(sceneEl, upToStep) {
+        sceneEl.querySelectorAll('[data-step]').forEach(function (el) {
+          el.classList.toggle('revealed', parseInt(el.dataset.step, 10) <= upToStep);
+        });
+      }
+
       function go(n) {
+        applySteps(scenes[cur], 0);
         scenes[cur].classList.remove('active');
         cur = Math.max(0, Math.min(n, total - 1));
+        curStep = 0;
         scenes[cur].classList.add('active');
         numEl.textContent = pad(cur + 1) + ' / ' + pad(total);
         prog.style.width = ((cur + 1) / total * 100) + '%';
       }
 
+      function advance() {
+        const maxStep = getMaxStep(scenes[cur]);
+        if (curStep < maxStep) {
+          curStep++;
+          applySteps(scenes[cur], curStep);
+        } else {
+          go(cur + 1);
+        }
+      }
+
+      function retreat() {
+        if (curStep > 0) {
+          curStep--;
+          applySteps(scenes[cur], curStep);
+        } else {
+          go(cur - 1);
+          curStep = getMaxStep(scenes[cur]);
+          applySteps(scenes[cur], curStep);
+        }
+      }
+
       go(0);
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(cur - 1); }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); advance(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); retreat(); }
         if (e.key === 'Home') go(0);
         if (e.key === 'End') go(total - 1);
       });
@@ -2638,7 +2791,10 @@
       document.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
       document.addEventListener('touchend', function (e) {
         const dx = e.changedTouches[0].clientX - tx;
-        if (Math.abs(dx) > 40) go(dx < 0 ? cur + 1 : cur - 1);
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) advance();
+          else retreat();
+        }
       });
 
       // Cursor
@@ -2649,10 +2805,10 @@
         document.body.classList.add('mouse-active');
       });
 
-      // Click to advance
+      // Click to advance/retreat
       document.getElementById('stage').addEventListener('click', function (e) {
-        if (e.clientX > window.innerWidth * 0.35) go(cur + 1);
-        else go(cur - 1);
+        if (e.clientX > window.innerWidth * 0.35) advance();
+        else retreat();
       });
     })();
   </script>
