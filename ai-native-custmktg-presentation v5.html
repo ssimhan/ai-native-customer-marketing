@@ -1735,10 +1735,11 @@
 
     #s28 .wf-steps {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: row;
+      align-items: center;
       gap: 8px;
-      max-width: 1200px;
+      flex-wrap: wrap;
+      max-width: 1400px;
     }
 
     #s28 .wf-step {
@@ -1749,15 +1750,13 @@
       font-size: 1.2cqw;
       color: var(--ink2);
       line-height: 1.4;
-      text-align: left;
-      min-width: 300px;
+      text-align: center;
     }
 
     #s28 .wf-arrow {
       color: var(--ink3);
-      font-size: 16px;
+      font-size: 20px;
       flex-shrink: 0;
-      transform: rotate(90deg);
       display: inline-block;
     }
 
@@ -2564,13 +2563,13 @@
         <div class="workflow-head r d2">The new workflow: record once, compound forever.</div>
         <div class="wf-steps r d3">
           <div class="wf-step">Expert records raw explanation</div>
-          <div class="wf-arrow">↓</div>
+          <div class="wf-arrow">→</div>
           <div class="wf-step">AI cleans, structures, re-voices</div>
-          <div class="wf-arrow">↓</div>
+          <div class="wf-arrow">→</div>
           <div class="wf-step">Timestamps, metadata, search</div>
-          <div class="wf-arrow">↓</div>
+          <div class="wf-arrow">→</div>
           <div class="wf-step">Becomes a reusable learning object</div>
-          <div class="wf-arrow">↓</div>
+          <div class="wf-arrow">→</div>
           <div class="wf-step">Part of a system — not a one-off artifact</div>
         </div>
       </div>
