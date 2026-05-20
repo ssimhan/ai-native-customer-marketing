@@ -1,0 +1,2829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI-Native Customer Marketing — Sandhya Simhan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #F7F4EE;
+      --cream2: #F0EDE5;
+      --cream3: #E8E3D8;
+      --ink: #1C1A2E;
+      --ink2: #3D3A52;
+      --ink3: #7A7890;
+      --detect: #D94F2A;
+      /* terracotta / Detect */
+      --decide: #5047E5;
+      /* indigo / Decide */
+      --deliver: #0D9E72;
+      /* emerald / Deliver */
+      --gold: #C8973A;
+      --card: #FFFFFF;
+      --border: rgba(28, 26, 46, 0.10);
+      --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      cursor: none;
+    }
+
+    .cursor {
+      width: 8px;
+      height: 8px;
+      background: var(--ink);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+      transition: transform 0.1s ease;
+    }
+
+    #slide-num {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.15em;
+      color: var(--ink3);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    body.mouse-active #slide-num {
+      opacity: 1;
+    }
+
+    #progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: var(--ink);
+      opacity: 0.15;
+      z-index: 1000;
+      transition: width 0.5s var(--ease-out);
+    }
+
+    #stage {
+      width: 1600px;
+      height: 900px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s var(--ease-out);
+    }
+
+    .scene.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .r {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+
+    .scene.active .r {
+      opacity: 1;
+      transform: none;
+    }
+
+    .rs {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+
+    .scene.active .rs {
+      opacity: 1;
+      transform: none;
+    }
+
+    .d1 {
+      transition-delay: .07s
+    }
+
+    .d2 {
+      transition-delay: .18s
+    }
+
+    .d3 {
+      transition-delay: .30s
+    }
+
+    .d4 {
+      transition-delay: .43s
+    }
+
+    .d5 {
+      transition-delay: .57s
+    }
+
+    .d6 {
+      transition-delay: .72s
+    }
+
+    .d7 {
+      transition-delay: .87s
+    }
+
+    .d8 {
+      transition-delay: 1.02s
+    }
+
+    .d9 {
+      transition-delay: 1.17s
+    }
+
+    /* ── STEP REVEALS ── */
+    [data-step] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+    }
+    [data-step].revealed {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── SHARED COMPONENTS ── */
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 32px;
+    }
+
+    .eyebrow.detect {
+      color: var(--detect);
+    }
+
+    .eyebrow.decide {
+      color: var(--decide);
+    }
+
+    .eyebrow.deliver {
+      color: var(--deliver);
+    }
+
+    .layer-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .layer-tag.detect {
+      background: rgba(217, 79, 42, 0.08);
+      border: 1px solid rgba(217, 79, 42, 0.2);
+      color: var(--detect);
+    }
+
+    .layer-tag.decide {
+      background: rgba(80, 71, 229, 0.08);
+      border: 1px solid rgba(80, 71, 229, 0.2);
+      color: var(--decide);
+    }
+
+    .layer-tag.deliver {
+      background: rgba(13, 158, 114, 0.08);
+      border: 1px solid rgba(13, 158, 114, 0.2);
+      color: var(--deliver);
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 44px;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--ink);
+      opacity: 0.15;
+      margin: 24px 0;
+    }
+
+    /* ── S0: TITLE ── */
+    #s0 {
+      background: var(--cream);
+      flex-direction: column;
+      text-align: center;
+      gap: 0;
+      align-items: center;
+      padding-top: 8vh;
+    }
+
+    #s0 .bg-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(80px, 14vw, 220px);
+      font-weight: 900;
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(28, 26, 46, 0.05);
+      position: absolute;
+      white-space: nowrap;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: -0.03em;
+    }
+
+    #s0 .eyebrow-top {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 32px;
+      z-index: 2;
+    }
+
+    #s0 h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 7.5vw, 110px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      z-index: 2;
+      margin-bottom: 32px;
+    }
+
+    #s0 h1 em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s0 .byline {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      color: var(--ink3);
+      letter-spacing: 0.08em;
+      z-index: 2;
+    }
+
+    #s0 .byline strong {
+      color: var(--ink2);
+      font-weight: 500;
+    }
+
+    #s0 .frame-hint {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-top: 48px;
+      z-index: 2;
+    }
+
+    #s0 .fh-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+    }
+
+    #s0 .fh-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    #s0 .fh-arrow {
+      color: var(--ink3);
+      font-size: 22px;
+    }
+
+    /* ── S1: COLD OPEN A ── */
+    #s1 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s1 .big-q {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5.5vw, 90px);
+      font-weight: 400;
+      line-height: 1.2;
+      max-width: 920px;
+    }
+
+    #s1 .big-q em {
+      font-style: italic;
+    }
+
+    #s1 .faster-list {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    #s1 .faster-chip {
+      padding: 10px 22px;
+      background: var(--cream2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+    }
+
+    #s1 .coda {
+      margin-top: 36px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── S2: COLD OPEN B - GOING FASTER WRONG JOB ── */
+    #s2 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s2 .big-stmt {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 7vw, 120px);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+    }
+
+    #s2 .big-stmt em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s2 .subtext {
+      margin-top: 36px;
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+
+    /* ── S3: THE STITCHING PROBLEM ── */
+    #s3 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s3 .stitch-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 32px;
+    }
+
+    #s3 .stitch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    #s3 .stitch-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+    }
+
+    #s3 .stitch-item .si-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    #s3 .stitch-item .si-label {
+      font-size: clamp(20px, 1.5vw, 26px);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    #s3 .stitch-item .si-sub {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      line-height: 1.4;
+    }
+
+    #s3 .bottom-line {
+      margin-top: 32px;
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 1000px;
+      line-height: 1.6;
+    }
+
+    #s3 .bottom-line strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ── S5: THE REAL QUESTION - light ── */
+    #s5 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s5 .big-stmt {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 7vw, 120px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.15;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    /* ── S6: THE REAL QUESTION ── */
+    #s6 {
+      background: var(--ink);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      color: #F0EDE8;
+    }
+
+    #s6 .old-q {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: rgba(240, 237, 232, 0.45);
+      font-style: italic;
+      margin-bottom: 36px;
+      font-family: 'Playfair Display', serif;
+      text-decoration: line-through;
+      text-decoration-color: rgba(217, 79, 42, 0.5);
+    }
+
+    #s6 .new-q {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+    }
+
+    #s6 .new-q em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s6 .label-row {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    /* ── S7: REFRAME ── */
+    #s7 {
+      background: var(--cream);
+      padding: 0 7vw;
+      padding-top: 8vh;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    #s7 .col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #s7 .col-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    #s7 .col-label.old {
+      color: var(--ink3);
+    }
+
+    #s7 .col-label.new {
+      color: var(--detect);
+    }
+
+    #s7 .col-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    #s7 .col-card.new-style {
+      border-color: rgba(217, 79, 42, 0.2);
+      background: rgba(217, 79, 42, 0.03);
+    }
+
+    #s7 .vs-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 12px;
+    }
+
+    #s7 .vs-div .vs-line {
+      width: 1px;
+      flex: 1;
+      background: var(--border);
+    }
+
+    #s7 .vs-div .vs-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      color: var(--ink3);
+      letter-spacing: 0.1em;
+    }
+
+    #s7 .col > div:not([class]),
+    #s7 .col ul,
+    #s7 .col li {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.5;
+    }
+
+    /* ── S8: THE FRAME ── */
+    #s8 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 6vw;
+      padding-top: 8vh;
+      text-align: center;
+    }
+
+    #s8 .frame-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 2.5vw, 44px);
+      font-weight: 400;
+      color: var(--ink2);
+      margin-bottom: 48px;
+    }
+
+    #s8 .three-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    #s8 .frame-col {
+      border-radius: 20px;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #s8 .frame-col.detect {
+      background: rgba(217, 79, 42, 0.06);
+      border: 1px solid rgba(217, 79, 42, 0.18);
+    }
+
+    #s8 .frame-col.decide {
+      background: rgba(80, 71, 229, 0.06);
+      border: 1px solid rgba(80, 71, 229, 0.18);
+    }
+
+    #s8 .frame-col.deliver {
+      background: rgba(13, 158, 114, 0.06);
+      border: 1px solid rgba(13, 158, 114, 0.18);
+    }
+
+    #s8 .fc-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    #s8 .fc-num.detect {
+      color: var(--detect);
+    }
+
+    #s8 .fc-num.decide {
+      color: var(--decide);
+    }
+
+    #s8 .fc-num.deliver {
+      color: var(--deliver);
+    }
+
+    #s8 .fc-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    #s8 .fc-word.detect {
+      color: var(--detect);
+    }
+
+    #s8 .fc-word.decide {
+      color: var(--decide);
+    }
+
+    #s8 .fc-word.deliver {
+      color: var(--deliver);
+    }
+
+    #s8 .fc-sub {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    #s8 .fc-domain {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-top: 4px;
+    }
+
+    #s8 .fc-domain.detect {
+      background: rgba(217, 79, 42, 0.1);
+      color: var(--detect);
+    }
+
+    #s8 .fc-domain.decide {
+      background: rgba(80, 71, 229, 0.1);
+      color: var(--decide);
+    }
+
+    #s8 .fc-domain.deliver {
+      background: rgba(13, 158, 114, 0.1);
+      color: var(--deliver);
+    }
+
+    #s8 .arrow-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    #s8 .arrow-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    #s8 .arrow-item.detect {
+      color: var(--detect);
+    }
+
+    #s8 .arrow-item.decide {
+      color: var(--decide);
+    }
+
+    #s8 .arrow-item.deliver {
+      color: var(--deliver);
+    }
+
+    #s8 .arrow-sep {
+      color: var(--ink3);
+      font-size: 16px;
+    }
+
+    /* ── S9: WHY CM - STRUCTURAL PROBLEM ── */
+    #s9 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s9 .big-line {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 960px;
+      margin-bottom: 36px;
+      letter-spacing: -0.01em;
+    }
+
+    #s9 .big-line em {
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    #s9 .prob-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #s9 .prob-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+    }
+
+    #s9 .prob-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ink3);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+
+    /* ── S11: HUSTLE ── */
+    #s11 {
+      background: var(--cream2);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s11 .big-line {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 960px;
+      letter-spacing: -0.01em;
+    }
+
+    #s11 .big-line em {
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    #s11 .hustle-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 880px;
+      margin-bottom: 32px;
+    }
+
+    #s11 .manually-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 860px;
+    }
+
+    #s11 .m-item {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      line-height: 1.4;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    #s11 .m-item::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--ink3);
+    }
+
+    #s11 .punchline {
+      margin-top: 32px;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 3vw, 56px);
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    /* ── S12: THE SHIFT ── */
+    #s12 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s12 .shift-from-to {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 960px;
+    }
+
+    #s12 .shift-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: clamp(36px, 2.5vw, 44px);
+    }
+
+    #s12 .shift-from {
+      flex: 1;
+      padding: 18px 24px;
+      background: var(--cream2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--ink3);
+      text-decoration: line-through;
+      text-decoration-color: rgba(28, 26, 46, 0.25);
+    }
+
+    #s12 .shift-arrow {
+      color: var(--ink3);
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    #s12 .shift-to {
+      flex: 1;
+      padding: 18px 24px;
+      background: var(--card);
+      border: 1px solid rgba(13, 158, 114, 0.25);
+      border-radius: 10px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    #s12 .shift-intro {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      max-width: 960px;
+    }
+
+    /* ── S13: DETECT INTRO ── */
+    #s13 {
+      background: rgba(217, 79, 42, 0.04);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      border-left: 4px solid var(--detect);
+    }
+
+    #s13 .layer-intro-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--detect);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+
+    #s13 .layer-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 12vw, 160px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--detect);
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    #s13 .layer-desc {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    #s13 .layer-domain {
+      margin-top: 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--detect);
+    }
+
+    /* ── S14: DETECT - POWER USER PROBLEM ── */
+    #s14 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s14 .pu-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 960px;
+      margin-bottom: 40px;
+    }
+
+    #s14 .def-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 44px;
+      max-width: 960px;
+      width: 100%;
+      position: relative;
+    }
+
+    #s14 .def-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 14px;
+    }
+
+    #s14 .def-text {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    #s14 .def-text strong {
+      color: var(--detect);
+    }
+
+    #s14 .def-problem {
+      margin-top: 20px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      font-style: italic;
+      line-height: 1.5;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    #s14 .weak-chain {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    #s14 .wc-item {
+      padding: 10px 18px;
+      background: rgba(217, 79, 42, 0.06);
+      border: 1px solid rgba(217, 79, 42, 0.15);
+      border-radius: 8px;
+      font-size: clamp(28px, 2vw, 36px);
+      color: var(--detect);
+    }
+
+    #s14 .wc-sep {
+      color: var(--ink3);
+      font-size: 28px;
+    }
+
+    /* ── S12a & S12b: DETECT - SEPARATE MOTIONS ── */
+    #s15, #s16 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s15 .before-after, #s16 .before-after {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    #s15 .ba-col, #s16 .ba-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #s15 .ba-label, #s16 .ba-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 8px;
+    }
+
+    #s15 .ba-label.after, #s16 .ba-label.after {
+      color: var(--detect);
+    }
+
+    #s15 .ba-step, #s16 .ba-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 24px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.4;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    #s15 .ba-step.after-style, #s16 .ba-step.after-style {
+      border-color: rgba(217, 79, 42, 0.2);
+      background: rgba(217, 79, 42, 0.03);
+    }
+
+    #s15 .ba-step-num, #s16 .ba-step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      color: var(--ink3);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    #s15 .ba-step-num.detect-num, #s16 .ba-step-num.detect-num {
+      color: var(--detect);
+    }
+
+    /* ── S17: DETECT - OUTPUT ── */
+    #s17 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s17 .output-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    #s17 .output-head em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s17 .downstream {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 900px;
+    }
+
+    #s17 .ds-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+    }
+
+    #s17 .ds-item .ds-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--detect);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* ── S18: DECIDE INTRO ── */
+    #s18 {
+      background: rgba(80, 71, 229, 0.04);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      border-left: 4px solid var(--decide);
+    }
+
+    #s18 .layer-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 12vw, 160px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--decide);
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    #s18 .layer-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--decide);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+
+    #s18 .layer-desc {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    #s18 .layer-domain {
+      margin-top: 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--decide);
+    }
+
+    /* ── S19: DECIDE - THE NOISE ── */
+    #s19 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s19 .noise-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    #s19 .thread-sim {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 900px;
+    }
+
+    #s19 .msg {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 22px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      line-height: 1.4;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    #s19 .msg-from {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink3);
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    #s19 .punchline {
+      margin-top: 24px;
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink3);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── S20: DECIDE - THE REAL WORK ── */
+    #s20 {
+      background: var(--cream2);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s20 .q-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      max-width: 960px;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    #s20 .q-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 900px;
+    }
+
+    #s20 .q-item {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      padding: 16px 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      line-height: 1.4;
+    }
+
+    #s20 .q-item strong {
+      color: var(--decide);
+      font-weight: 600;
+    }
+
+    /* ── S21: DECIDE - THE UNLOCK ── */
+    #s21 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s21 .unlock-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      max-width: 960px;
+      margin-bottom: 36px;
+      line-height: 1.2;
+    }
+
+    #s21 .unlock-head em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    #s21 .output-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    #s21 .out-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+
+    #s21 .out-card .oc-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    #s21 .out-card .oc-title {
+      font-size: clamp(28px, 2vw, 36px);
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    #s21 .out-card .oc-sub {
+      font-size: clamp(20px, 1.5vw, 26px);
+      color: var(--ink3);
+      line-height: 1.4;
+    }
+
+    #s21 .cred-line {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      max-width: 960px;
+      line-height: 1.6;
+    }
+
+    #s21 .cred-line em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    /* ── S22: DECIDE - THE OPERATING LAYER ── */
+    #s22 {
+      background: var(--ink);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      color: #F0EDE8;
+    }
+
+    #s22 .op-line {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.15;
+      max-width: 980px;
+      letter-spacing: -0.01em;
+    }
+
+    #s22 .op-line em {
+      font-style: italic;
+      color: var(--decide);
+    }
+
+    /* ── S23: DECIDE - CREDIBILITY SHIFT ── */
+    #s23 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s23 .cred-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    #s23 .cred-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #s23 .cred-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    #s23 .cred-tag.old { color: var(--ink3); }
+    #s23 .cred-tag.new { color: var(--decide); }
+
+    #s23 .cred-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 2.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    #s23 .cred-head.old { color: var(--ink3); }
+    #s23 .cred-head.new { color: var(--ink); }
+
+    #s23 .cred-item {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      line-height: 1.5;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    #s23 .cred-item::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--ink3);
+      opacity: 0.5;
+    }
+
+    #s23 .cred-item.live {
+      color: var(--ink2);
+    }
+
+    #s23 .cred-item.live::before {
+      color: var(--decide);
+      opacity: 1;
+    }
+
+    /* ── S24: DECIDE - THE END STATE ── */
+    #s24 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s24 .end-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--decide);
+      margin-bottom: 32px;
+    }
+
+    #s24 .outcome-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+    }
+
+    #s24 .outcome-item {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      line-height: 1.4;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    #s24 .outcome-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--decide);
+      opacity: 0.35;
+    }
+
+    #s24 .outcome-item.anchor {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink);
+      font-weight: 600;
+      margin-top: 6px;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+    }
+
+    #s24 .outcome-item.anchor::before {
+      opacity: 1;
+      top: 1.1em;
+    }
+
+    /* ── S25: DELIVER INTRO ── */
+    #s25 {
+      background: rgba(13, 158, 114, 0.04);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      border-left: 4px solid var(--deliver);
+    }
+
+    #s25 .layer-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 12vw, 160px);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--deliver);
+      letter-spacing: -0.03em;
+      margin-bottom: 32px;
+    }
+
+    #s25 .layer-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--deliver);
+      opacity: 0.7;
+      margin-bottom: 12px;
+    }
+
+    #s25 .layer-desc {
+      font-size: clamp(48px, 3vw, 56px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    #s25 .layer-domain {
+      margin-top: 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--deliver);
+    }
+
+    /* ── S26: DELIVER - THE PILE ── */
+    #s26 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s26 .pile-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    #s26 .pile-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 1000px;
+    }
+
+    #s26 .pile-chip {
+      padding: 12px 20px;
+      background: var(--cream2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: clamp(28px, 2vw, 36px);
+      color: var(--ink3);
+    }
+
+    #s26 .pile-verdict {
+      margin-top: 32px;
+      font-size: clamp(48px, 3vw, 56px);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--ink2);
+      max-width: 900px;
+      line-height: 1.5;
+    }
+
+    #s26 .pile-verdict strong {
+      font-style: normal;
+      color: var(--ink);
+    }
+
+    /* ── S27: DELIVER - PLACEHOLDER ── */
+    #s27 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 0 8vw;
+      padding-top: 8vh;
+      gap: 28px;
+      text-align: center;
+    }
+
+    #s27 .ph-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
+
+    #s27 .ph-boxes {
+      display: flex;
+      gap: 32px;
+      align-items: flex-end;
+    }
+
+    #s27 .ph-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    #s27 .ph-img {
+      width: clamp(220px, 22vw, 340px);
+      height: clamp(220px, 22vw, 340px);
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(28,26,46,0.12);
+    }
+
+    #s27 .ph-box .ph-cap {
+      font-size: clamp(20px, 1.5vw, 26px);
+      color: var(--ink3);
+      letter-spacing: 0.04em;
+    }
+
+    #s27 .ph-vs {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: italic;
+      color: var(--ink3);
+    }
+
+    #s27 .ph-caption {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink2);
+      max-width: 760px;
+      line-height: 1.6;
+    }
+
+    #s27 .ph-caption em {
+      font-style: italic;
+      color: var(--deliver);
+    }
+
+    /* ── S28: DELIVER - NEW WORKFLOW ── */
+    #s28 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s28 .workflow-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 700;
+      margin-bottom: 36px;
+      max-width: 960px;
+      line-height: 1.2;
+    }
+
+    #s28 .wf-steps {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 1200px;
+    }
+
+    #s28 .wf-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: clamp(28px, 2vw, 36px);
+      color: var(--ink2);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    #s28 .wf-arrow {
+      color: var(--ink3);
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    #s28 .infra-line {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink);
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    /* ── S29: DELIVER - NEW SCOREBOARD ── */
+    #s29 {
+      background: var(--cream);
+      padding: 0 7vw;
+      padding-top: 8vh;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    #s29 .sb-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #s29 .sb-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 8px;
+    }
+
+    #s29 .sb-label.new {
+      color: var(--deliver);
+    }
+
+    #s29 .sb-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      text-decoration: line-through;
+      text-decoration-color: rgba(28, 26, 46, 0.2);
+    }
+
+    #s29 .sb-item.new-style {
+      background: rgba(13, 158, 114, 0.04);
+      border-color: rgba(13, 158, 114, 0.2);
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    #s29 .divider-v {
+      width: 1px;
+      background: var(--border);
+      align-self: stretch;
+      margin: 0 4px;
+    }
+
+    /* ── S30: THE BIGGER PATTERN ── */
+    #s30 {
+      background: var(--ink);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      padding: 0 8vw;
+      padding-top: 8vh;
+      color: #F0EDE8;
+    }
+
+    #s30 .bp-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 2.5vw, 44px);
+      font-weight: 400;
+      color: rgba(240, 237, 232, 0.5);
+      margin-bottom: 40px;
+    }
+
+    #s30 .bp-three {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    #s30 .bp-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #s30 .bp-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+
+    #s30 .bp-word.detect {
+      color: var(--detect);
+    }
+
+    #s30 .bp-word.decide {
+      color: var(--decide);
+    }
+
+    #s30 .bp-word.deliver {
+      color: var(--deliver);
+    }
+
+    #s30 .bp-sub {
+      font-size: 16px;
+      color: rgba(240, 237, 232, 0.4);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    #s30 .bp-arrow {
+      color: rgba(240, 237, 232, 0.25);
+      font-size: 22px;
+    }
+
+    #s30 .bp-punchline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 4vw, 72px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 900px;
+    }
+
+    #s30 .bp-punchline em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    /* ── S31: ORCHESTRATION LAYER ── */
+    #s31 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s31 .orch-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 5vw, 90px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      max-width: 980px;
+      margin-bottom: 36px;
+    }
+
+    #s31 .orch-head em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s31 .triggers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 1000px;
+    }
+
+    #s31 .trigger-chip {
+      padding: 12px 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: clamp(28px, 2vw, 36px);
+      color: var(--ink2);
+    }
+
+    #s31 .orch-sub {
+      margin-top: 32px;
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    #s31 .orch-sub strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ── S32: COMPOUNDING ── */
+    #s32 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s32 .comp-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 4vw, 72px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    #s32 .comp-old {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: var(--ink3);
+      margin-bottom: 28px;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #s32 .comp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+    }
+
+    #s32 .comp-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+
+    #s32 .comp-card .cc-q {
+      font-size: clamp(20px, 1.5vw, 26px);
+      color: var(--ink3);
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+
+    #s32 .comp-card .cc-a {
+      font-size: clamp(22px, 1.6vw, 28px);
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* ── S33: WHAT IT TAKES ── */
+    #s33 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 8vw;
+      padding-top: 8vh;
+    }
+
+    #s33 .wit-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 4vw, 72px);
+      font-weight: 700;
+      max-width: 960px;
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+
+    #s33 .three-reqs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    #s33 .req-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 32px;
+    }
+
+    #s33 .req-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink3);
+      margin-bottom: 14px;
+    }
+
+    #s33 .req-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 2.5vw, 48px);
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    #s33 .req-body {
+      font-size: clamp(28px, 2vw, 36px);
+      color: var(--ink3);
+      line-height: 1.55;
+    }
+
+    /* ── S34: CLOSE ── */
+    #s34 {
+      background: var(--ink);
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 0 10vw;
+      padding-top: 8vh;
+      color: #F0EDE8;
+    }
+
+    #s34 .close-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(240, 237, 232, 0.35);
+      margin-bottom: 36px;
+    }
+
+    #s34 .close-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 6vw, 100px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      max-width: 980px;
+      margin-bottom: 40px;
+    }
+
+    #s34 .close-head em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s34 .close-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #s34 .cl-item {
+      font-size: clamp(36px, 2.5vw, 44px);
+      color: rgba(240, 237, 232, 0.65);
+      line-height: 1.4;
+      padding-left: 28px;
+      position: relative;
+    }
+
+    #s34 .cl-item::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: rgba(240, 237, 232, 0.25);
+    }
+
+    /* ── S35: FINAL CTA ── */
+    #s35 {
+      background: var(--cream);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      padding: 0 10vw;
+      padding-top: 8vh;
+    }
+
+    #s35 .final-q {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 7vw, 120px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      max-width: 980px;
+      margin-bottom: 40px;
+    }
+
+    #s35 .final-q em {
+      font-style: italic;
+      color: var(--detect);
+    }
+
+    #s35 .byline {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      color: var(--ink3);
+      letter-spacing: 0.08em;
+    }
+
+    #s35 .byline strong {
+      color: var(--ink2);
+      font-weight: 500;
+    }
+
+    #s35 .frame-chips {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 36px;
+    }
+
+    #s35 .fc-chip {
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-family: 'DM Mono', monospace;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    #s35 .fc-chip.detect {
+      background: rgba(217, 79, 42, 0.08);
+      border: 1px solid rgba(217, 79, 42, 0.2);
+      color: var(--detect);
+    }
+
+    #s35 .fc-chip.decide {
+      background: rgba(80, 71, 229, 0.08);
+      border: 1px solid rgba(80, 71, 229, 0.2);
+      color: var(--decide);
+    }
+
+    #s35 .fc-chip.deliver {
+      background: rgba(13, 158, 114, 0.08);
+      border: 1px solid rgba(13, 158, 114, 0.2);
+      color: var(--deliver);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div id="slide-num">01 / 35</div>
+  <div id="progress"></div>
+
+  <div id="stage">
+
+    <!-- S0: TITLE -->
+    <div class="scene active" id="s0">
+      <span class="bg-word">redesign</span>
+      <div class="eyebrow-top r d1">Sandhya Simhan · Head of Customer Marketing, Glean</div>
+      <h1 class="r d2">AI-<em>Native</em><br>Customer<br>Marketing</h1>
+    </div>
+
+    <!-- S1: COLD OPEN A -->
+    <div class="scene" id="s1">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="big-q r d2">If you work in marketing right now, you are probably using AI to <em>go faster.</em>
+        </div>
+        <div class="faster-list r d3">
+          <span class="faster-chip">Writing</span>
+          <span class="faster-chip">Summarizing</span>
+          <span class="faster-chip">First drafts</span>
+          <span class="faster-chip">Content production</span>
+          <span class="faster-chip">Follow-up</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- S2: WRONG JOB -->
+    <div class="scene" id="s2">
+      <div style="max-width:900px; padding: 0 10vw; width:100%;">
+        <div class="eyebrow r d1">But</div>
+        <div class="big-stmt r d2">Going faster at the<br>old job is the <br> <em>wrong job</em>.</div>
+      </div>
+    </div>
+
+    <!-- S3: THE STITCHING PROBLEM -->
+    <div class="scene" id="s3">
+      <div style="max-width:1100px; padding: 0 8vw; width:100%; display:flex; flex-direction:column; gap:0;">
+        <div class="stitch-label r d1">The customer marketing problem</div>
+        <img src="quilt.png" alt="Quilt illustrating the stitching problem" style="width: 100%; max-width: 900px; margin: 20px 0;">
+      </div>
+    </div>
+
+    <!-- S4a: THE REAL QUESTION - light slide -->
+    <div class="scene" id="s5">
+        <div class="big-stmt r d1">How do I do the same work more efficiently?</div>
+    </div>
+
+    <!-- S6: THE REAL QUESTION - dark slide -->
+    <div class="scene" id="s6">
+      <div style="max-width:900px; padding: 0 10vw; width:100%;">
+        <div class="old-q r d1">How do I do the same work more efficiently?</div>
+        <div class="new-q r d2">If research, synthesis, drafting, and orchestration are suddenly much <em>cheaper</em> —
+          what should this function actually become?</div>
+      </div>
+    </div>
+
+    <!-- S7: REFRAME - side by side -->
+    <div class="scene" id="s7" style="padding: 8vh 7vw 4vh; gap: 20px;">
+      <div class="col">
+        <div class="col-label old" data-step="1">AI as acceleration</div>
+        <div data-step="1">Take apart existing workflow <br> → insert AI at various points <br>→ make it more efficient</div>
+      </div>
+      <div class="vs-div" data-step="1">
+        <div class="vs-line"></div>
+        <div class="vs-label">VS</div>
+        <div class="vs-line"></div>
+      </div>
+      <div class="col" data-step="3">
+        <div class="col-label new">AI-native</div>
+        <div class="col-card new-style"><strong>Start with the outcome you want</strong></div>
+        <div class="col-card new-style">Not "where did we save time?" but <br> <strong>"what work is now possible?"</strong></div>
+      </div>
+    </div>
+
+    <!-- S8: THE THREE-LAYER FRAME -->
+    <div class="scene" id="s8">
+      <div class="frame-title r d1">AI-native customer marketing has <br> three primary components.</div>
+      <div class="three-cols">
+        <div class="frame-col detect" data-step="1">
+          <div class="fc-num detect">01</div>
+          <div class="fc-word detect">Detect</div>
+          <div class="fc-sub">What is actually happening with your customers and their adoption?</div>
+          <div class="fc-domain detect">Research</div>
+        </div>
+        <div class="frame-col decide" data-step="2">
+          <div class="fc-num decide">02</div>
+          <div class="fc-word decide">Decide</div>
+          <div class="fc-sub">What should happen next? Structured decision support over scattered asks.</div>
+          <div class="fc-domain decide">Adoption</div>
+        </div>
+        <div class="frame-col deliver" data-step="3">
+          <div class="fc-num deliver">03</div>
+          <div class="fc-word deliver">Deliver</div>
+          <div class="fc-sub">The right intervention, at scale, without manual heroics.</div>
+          <div class="fc-domain deliver">Channels</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S9: WHY CM - STRUCTURAL PROBLEM -->
+    <div class="scene" id="s9">
+      <div style="max-width:900px; padding: 0 10vw; width:100%;">
+        <div class="eyebrow r d1">Why me?</div>
+        <div class="big-line r d2">We sit on top of a huge amount of signal, but very little of it arrives in a form we
+          can <em>use cleanly.</em></div>
+        <div class="prob-list r d3">
+          <div class="prob-item">Data is fragmented</div>
+          <div class="prob-item">Content is fragmented</div>
+          <div class="prob-item">Customer context is fragmented</div>
+          <div class="prob-item">The team compensates with hustle</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S7b: SPIDERMAN GIF -->
+    <div class="scene" id="s10" style="padding: 0; display: flex; align-items: center; justify-content: center;">
+      <img src="Spider_Man_Homecoming_2017_Ferry_Fight_Scene_5_10_Movieclips.gif" alt="Spider-Man gif" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+
+    <!-- S11: HUSTLE -->
+    <div class="scene" id="s11">
+      <div style="max-width:900px; padding: 0 10vw; width:100%;">
+        <div class="big-line r d2">A smart team can make a broken system look functional for a surprisingly <em>long time</em>
+          .</div>
+      </div>
+    </div>
+
+    <!-- S12: THE SHIFT -->
+    <div class="scene" id="s12">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="shift-intro r d1">AI changed how much
+          fragmentation we can collapse.</div>
+        <div class="shift-from-to r d2">
+          <div class="shift-row">
+            <div class="shift-from">Packaged outputs</div>
+            <div class="shift-arrow">→</div>
+            <div class="shift-to">Interpret signals</div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-from">Reactive content arm for CS</div>
+            <div class="shift-arrow">→</div>
+            <div class="shift-to">Build systems</div>
+          </div>
+          <div class="shift-row">
+            <div class="shift-from">PMM Lite</div>
+            <div class="shift-arrow">→</div>
+            <div class="shift-to">Designs the post-sales journey</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S13: DETECT INTRO -->
+    <div class="scene" id="s13">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-intro-num r d1">Layer 01 — Research</div>
+        <div class="layer-word r d2">Detect</div>
+        <div class="layer-desc r d3">Before I can orchestrate anything, I need to know what is actually happening.
+          Research stops being a quarterly readout — it becomes a live operating input.</div>
+        <div class="layer-domain r d4">Research → Live Intelligence</div>
+      </div>
+    </div>
+
+    <!-- S14: DETECT - POWER USER PROBLEM -->
+    <div class="scene" id="s14">
+      <div style="max-width:900px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
+        <div class="def-card r d3">
+          <div class="def-label">Working definition — "Power User"</div>
+          <div class="def-text">A person who did <strong>50+ high-intent actions</strong> in a 28-day period.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S12a: DETECT - OLD MOTION -->
+    <div class="scene" id="s15">
+      <div style="max-width:1100px; padding: 0 8vw; width:100%;">
+        <div class="before-after r d2">
+          <div class="ba-col">
+            <div class="ba-label">Before: the old motion</div>
+            <div class="ba-step"><span class="ba-step-num">1</span>Ask around. Find a stale deck.</div>
+            <div class="ba-step"><span class="ba-step-num">2</span>Wait — the data scientist is on vacation</div>
+            <div class="ba-step"><span class="ba-step-num">3</span>Weeks later: receive a large Excel file</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S12b: DETECT - NEW MOTION -->
+    <div class="scene" id="s16">
+      <div style="max-width:1100px; padding: 0 8vw; width:100%;">
+        <div class="before-after r d2">
+          <div class="ba-col">
+            <div class="ba-label after">After: a living intelligence problem</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">1</span>Glean surfaces prior analyses instantly</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">2</span>Refine the question and accelerate query work</div>
+            <div class="ba-step after-style"><span class="ba-step-num detect-num">3</span><strong>Treat the question dynamically until the concept itself gets smarter</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S17: DETECT - OUTPUT -->
+    <div class="scene" id="s17">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-tag detect r d1"><span class="dot"></span>Detect layer</div>
+        <div class="output-head r d2"> The <em>foundational concept </em> aka our maturity framework got smarter so everything downstream improved.</div>
+        <div class="downstream r d3">
+          <div class="ds-item"><span class="ds-dot"></span>Segmentation became more meaningful</div>
+          <div class="ds-item"><span class="ds-dot"></span>"Who should we nudge?" decisions became more grounded</div>
+          <div class="ds-item"><span class="ds-dot"></span>Research became a live operating input, not a quarterly readout</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S18: DECIDE INTRO -->
+    <div class="scene" id="s18">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-num r d1">Layer 02 — Operations</div>
+        <div class="layer-word r d2">Decide</div>
+        <div class="layer-desc r d3">Once I have better signal, I need a better decision layer sitting on top of it.
+          This is where I think customer marketing quietly loses the most leverage.</div>
+        <div class="layer-domain r d4">Operations → Structured Decision Support</div>
+      </div>
+    </div>
+
+    <!-- S19: DECIDE - THE NOISE -->
+    <div class="scene" id="s19">
+      <div style="max-width:860px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="noise-head r d2">What you actually receive is not a brief. It is fragments.</div>
+        <div class="thread-sim r d3">
+          <div class="msg"><span class="msg-from">CS Note</span>A certain cohort is not adopting the new workflow feature...</div>
+          <div class="msg"><span class="msg-from">Slack</span>quick question — should we build content for this?</div>
+          <div class="msg"><span class="msg-from">Sales</span>can we get a quick recommendation before Thursday?</div>
+        </div>
+        <div class="punchline r d4">At that point, the real work is not content. The real work is sense-making.</div>
+      </div>
+    </div>
+
+    <!-- S20: DECIDE - THE REAL WORK -->
+    <div class="scene" id="s20">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="q-head r d2">The interpretive questions that someone has to answer before anything useful can
+          happen:</div>
+        <div class="q-list r d3">
+          <div class="q-item">What actually happened? <strong>Who is affected?</strong></div>
+          <div class="q-item">Is this big or small? Is it a one-off or a <strong>pattern</strong>?</div>
+          <div class="q-item">What <strong>kind of problem </strong> is it: education, product, messaging, or
+              instrumentation?</div>
+          <div class="q-item">What should happen <strong>next</strong>?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S21: DECIDE - THE UNLOCK -->
+    <div class="scene" id="s21">
+      <div style="max-width:1000px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="unlock-head r d2">Glean didn't give us a clever paragraph, it gave us <em>structure.</em></div>
+        <div class="output-grid r d3">
+          <div class="out-card">
+            <div class="oc-icon">📋</div>
+            <div class="oc-title">Summary of decisions</div>
+          </div>
+          <div class="out-card">
+            <div class="oc-icon">❓</div>
+            <div class="oc-title">Open questions</div>
+          </div>
+          <div class="out-card">
+            <div class="oc-icon">🎯</div>
+            <div class="oc-title">Next steps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S22: DECIDE - THE OPERATING LAYER -->
+    <div class="scene" id="s22">
+      <div style="max-width:920px; padding: 0 10vw; width:100%;">
+        <div class="op-line r d1">No longer just responding to whoever <em>pinged last.</em></div>
+        <div class="op-line r d2" style="margin-top: 28px;">Building an <em>operating layer.</em></div>
+      </div>
+    </div>
+
+    <!-- S23: DECIDE - CREDIBILITY SHIFT -->
+    <div class="scene" id="s23">
+      <div style="max-width:1000px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="cred-cols r d2">
+          <div class="cred-col">
+            <div class="cred-tag old">Before</div>
+            <div class="cred-head old">Creative credibility</div>
+            <div class="cred-item">We make great content</div>
+            <div class="cred-item">We tell good stories</div>
+            <div class="cred-item">We package information well</div>
+          </div>
+          <div class="cred-col">
+            <div class="cred-tag new">After</div>
+            <div class="cred-head new">Operational credibility</div>
+            <div class="cred-item live">We reduce confusion for the business</div>
+            <div class="cred-item live">We make the work clearer for everyone</div>
+            <div class="cred-item live">We influence outcomes, not just package them</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S24: DECIDE - THE END STATE -->
+    <div class="scene" id="s24">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-tag decide r d1"><span class="dot"></span>Decide layer</div>
+        <div class="end-label r d2">The end state</div>
+        <div class="outcome-list r d3">
+          <div class="outcome-item">Faster triage</div>
+          <div class="outcome-item">Less reactive thrash</div>
+          <div class="outcome-item anchor">A customer marketing team that influences outcomes instead of just absorbs requests</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S25: DELIVER INTRO -->
+    <div class="scene" id="s25">
+      <div style="max-width:860px; padding: 0 10vw; width:100%;">
+        <div class="layer-num r d1">Layer 03 — Education</div>
+        <div class="layer-word r d2">Deliver</div>
+        <div class="layer-desc r d3">Once I know what is happening, and I have clarity on what should happen next, I
+          need a <strong>scalable</strong> way to actually deliver the intervention. </div>
+      </div>
+    </div>
+
+    <!-- S26: DELIVER - THE PILE -->
+    <div class="scene" id="s26">
+      <div style="max-width:880px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag deliver r d1"><span class="dot"></span>Deliver layer</div>
+        <div class="pile-head r d2">We had accumulated a lot of helpful content in unhelpful formats.</div>
+        <div class="pile-items r d3">
+          <span class="pile-chip">Videos somewhere in Drive</span>
+          <span class="pile-chip">Docs nobody can find</span>
+<span class="pile-chip">Tribal knowledge in CSMs' heads</span>
+          <span class="pile-chip">Internal recordings</span>
+          <span class="pile-chip">Ad hoc walkthroughs</span>
+          <span class="pile-chip">A Google Sheet with ~100 Loom links</span>
+          <span class="pile-chip">Looms that might be outdated</span>
+          <span class="pile-chip">Partridge in a pear tree</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- S27: DELIVER - PLACEHOLDER SLIDE -->
+    <div class="scene" id="s27">
+      <div class="ph-label r d1">Deliver layer · the paradigm shift</div>
+      <div class="ph-boxes r d2">
+        <div class="ph-box">
+          <img src="jonah-white-light.webp" alt="Ice sculpture" class="ph-img">
+          <div class="ph-cap">Artisanal content production</div>
+        </div>
+        <div class="ph-vs">vs</div>
+        <div class="ph-box">
+          <img src="bag-of-ice.webp" alt="Bag of ice" class="ph-img">
+          <div class="ph-cap">Education infrastructure</div>
+        </div>
+      </div>
+      <div class="ph-caption r d3">Once customer education starts to behave like <em>infrastructure</em>, the function
+        scales in a way that artisanal production never can.</div>
+    </div>
+
+    <!-- S28: DELIVER - NEW WORKFLOW -->
+    <div class="scene" id="s28">
+      <div style="max-width:1100px; padding: 0 8vw; width:100%;">
+        <div class="layer-tag deliver r d1"><span class="dot"></span>Deliver layer</div>
+        <div class="workflow-head r d2">The new workflow: record once, compound forever.</div>
+        <div class="wf-steps r d3">
+          <div class="wf-step">Expert records raw explanation</div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step">AI cleans, structures, re-voices</div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step">Timestamps, metadata, search</div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step">Becomes a reusable learning object</div>
+          <div class="wf-arrow">→</div>
+          <div class="wf-step">Part of a system — not a one-off artifact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S29: DELIVER - NEW SCOREBOARD -->
+    <div class="scene" id="s29" style="padding: 8vh 7vw 4vh; gap: 20px;">
+      <div class="sb-col" data-step="1">
+        <div class="sb-label">Old scoreboard</div>
+        <div class="sb-item">How many webinars did we run?</div>
+        <div class="sb-item">How many docs did we publish?</div>
+        <div class="sb-item">How many videos did we create?</div>
+      </div>
+      <div class="divider-v" data-step="1"></div>
+      <div class="sb-col" data-step="2">
+        <div class="sb-label new">Better scoreboard</div>
+        <div class="sb-item new-style">How searchable is our knowledge?</div>
+        <div class="sb-item new-style">How reusable is our learning?</div>
+        <div class="sb-item new-style">How quickly can we convert raw expertise into trustworthy education?</div>
+      </div>
+    </div>
+
+    <!-- S30: THE BIGGER PATTERN - dark -->
+    <div class="scene" id="s30">
+      <div class="bp-three r d1">
+        <div class="bp-item">
+          <div class="bp-word detect">Detect</div>
+          <div class="bp-sub">better maturity detection</div>
+        </div>
+        <div class="bp-arrow">→</div>
+        <div class="bp-item">
+          <div class="bp-word decide">Decide</div>
+          <div class="bp-sub">clearer action</div>
+        </div>
+        <div class="bp-arrow">→</div>
+        <div class="bp-item">
+          <div class="bp-word deliver">Deliver</div>
+          <div class="bp-sub">faster time-to-value</div>
+        </div>
+      </div>
+      <div class="bp-punchline r d2">Customer marketing starts to look less like a content function and more like an
+        <em>orchestration layer.</em></div>
+    </div>
+
+    <!-- S31: ORCHESTRATION LAYER - TRIGGERS -->
+    <div class="scene" id="s31">
+      <div style="max-width:920px; padding: 0 10vw; width:100%;">
+        <div class="eyebrow r d1">The orchestration layer</div>
+        <div class="orch-head r d2">These are not just analytics observations.<br>They are <em>triggers.</em></div>
+        <div class="triggers r d3">
+          <span class="trigger-chip">Customer adopts a feature</span>
+          <span class="trigger-chip">Admin stalls</span>
+          <span class="trigger-chip">Champion shows unusual engagement</span>
+          <span class="trigger-chip">Region is lagging</span>
+          <span class="trigger-chip">A use case is taking off</span>
+          <span class="trigger-chip">New feature lands, intended audience not moving</span>
+          <span class="trigger-chip">Expansion signal detected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- S32: COMPOUNDING -->
+    <div class="scene" id="s32">
+      <div style="max-width:1000px; padding: 0 8vw; width:100%;">
+        <div class="eyebrow r d1">The compounding effect</div>
+        <div class="comp-head r d2">In the old model, the team gets credit for heroics. In the new model, you build
+          systems that get smarter over time.</div>
+        <div class="comp-grid">
+          <div class="comp-card" data-step="1">
+            <div class="cc-q">Did we ship something good?</div>
+            <div class="cc-a">→ Did we build a system that makes the next thing easier?</div>
+          </div>
+          <div class="comp-card" data-step="1">
+            <div class="cc-q">Did we create enough content?</div>
+            <div class="cc-a">→ Did we reduce dependency on tribal knowledge?</div>
+          </div>
+          <div class="comp-card" data-step="1">
+            <div class="cc-q">Did we answer the ask?</div>
+            <div class="cc-a">→ Did we convert recurring chaos into a standard operating pattern?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S33: WHAT IT TAKES -->
+    <div class="scene" id="s33">
+      <div style="max-width:1020px; padding: 0 8vw; width:100%;">
+        <div class="wit-head r d1">None of this happens just because you bought an AI tool. You need three things.</div>
+        <div class="three-reqs">
+          <div class="req-card" data-step="1">
+            <div class="req-num">01</div>
+            <div class="req-title">Instrumentation</div>
+            <div class="req-body">If your inputs are weak, AI just produces more articulate confusion.</div>
+          </div>
+          <div class="req-card" data-step="2">
+            <div class="req-num">02</div>
+            <div class="req-title">Judgment</div>
+            <div class="req-body">AI generates options. It cannot own the standard of quality — that is still our job.</div>
+          </div>
+          <div class="req-card" data-step="3">
+            <div class="req-num">03</div>
+            <div class="req-title">Systems thinking</div>
+            <div class="req-body">One-off AI use gets one-off gains. Redesign the flow of work and the function scales.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S34: CLOSE - dark -->
+    <div class="scene" id="s34">
+      <div style="max-width:900px; padding: 0 10vw; width:100%;">
+        <div class="close-label r d1">The idea I want to leave you with</div>
+        <div class="close-head r d2">The most interesting use of AI in customer marketing is not acceleration.
+          It is <em>redesign.</em></div>
+
+      </div>
+    </div>
+
+    <!-- S35: FINAL CTA -->
+    <div class="scene" id="s35">
+      <div class="final-q r d1">We are still<br>very <em>early.</em><br>Who's in?</div>
+      <div class="byline r d2"><strong>Sandhya Simhan</strong> · Head of Customer Marketing, Glean</div>
+
+    </div>
+
+  </div><!-- /stage -->
+
+  <script>
+    (function () {
+      const CANVAS_W = 1600, CANVAS_H = 900;
+
+      function scaleStage() {
+        const stage = document.getElementById('stage');
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const scale = Math.min(vw / CANVAS_W, vh / CANVAS_H);
+        const tx = Math.round((vw - CANVAS_W * scale) / 2);
+        const ty = Math.round((vh - CANVAS_H * scale) / 2);
+        stage.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+
+      scaleStage();
+      window.addEventListener('resize', scaleStage);
+
+      const scenes = Array.from(document.querySelectorAll('.scene'));
+      const total = scenes.length;
+      let cur = 0;
+      let curStep = 0;
+
+      const numEl = document.getElementById('slide-num');
+      const prog = document.getElementById('progress');
+
+      function pad(n) { return String(n).padStart(2, '0'); }
+
+      function getMaxStep(sceneEl) {
+        let max = 0;
+        sceneEl.querySelectorAll('[data-step]').forEach(function (el) {
+          const n = parseInt(el.dataset.step, 10);
+          if (n > max) max = n;
+        });
+        return max;
+      }
+
+      function applySteps(sceneEl, upToStep) {
+        sceneEl.querySelectorAll('[data-step]').forEach(function (el) {
+          el.classList.toggle('revealed', parseInt(el.dataset.step, 10) <= upToStep);
+        });
+      }
+
+      function go(n) {
+        applySteps(scenes[cur], 0);
+        scenes[cur].classList.remove('active');
+        cur = Math.max(0, Math.min(n, total - 1));
+        curStep = 0;
+        scenes[cur].classList.add('active');
+        numEl.textContent = pad(cur + 1) + ' / ' + pad(total);
+        prog.style.width = ((cur + 1) / total * 100) + '%';
+      }
+
+      function advance() {
+        const maxStep = getMaxStep(scenes[cur]);
+        if (curStep < maxStep) {
+          curStep++;
+          applySteps(scenes[cur], curStep);
+        } else {
+          go(cur + 1);
+        }
+      }
+
+      function retreat() {
+        if (curStep > 0) {
+          curStep--;
+          applySteps(scenes[cur], curStep);
+        } else {
+          go(cur - 1);
+          curStep = getMaxStep(scenes[cur]);
+          applySteps(scenes[cur], curStep);
+        }
+      }
+
+      go(0);
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); advance(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); retreat(); }
+        if (e.key === 'Home') go(0);
+        if (e.key === 'End') go(total - 1);
+      });
+
+      // Touch / swipe
+      let tx = 0;
+      document.addEventListener('touchstart', function (e) { tx = e.touches[0].clientX; }, { passive: true });
+      document.addEventListener('touchend', function (e) {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 40) {
+          if (dx < 0) advance();
+          else retreat();
+        }
+      });
+
+      // Cursor
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', function (e) {
+        cursor.style.left = e.clientX - 4 + 'px';
+        cursor.style.top = e.clientY - 4 + 'px';
+        document.body.classList.add('mouse-active');
+      });
+
+      // Click to advance/retreat (use stage bounding rect to account for scale + centering)
+      document.getElementById('stage').addEventListener('click', function (e) {
+        const rect = document.getElementById('stage').getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width;
+        if (relX > 0.35) advance();
+        else retreat();
+      });
+    })();
+  </script>
+
+</body>
+
+</html>
