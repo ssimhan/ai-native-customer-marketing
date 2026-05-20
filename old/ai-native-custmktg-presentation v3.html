@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=1920, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI-Native Customer Marketing — Sandhya Simhan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
@@ -90,9 +90,12 @@
     }
 
     #stage {
-      width: 100vw;
-      height: 100vh;
-      position: relative;
+      width: 1600px;
+      height: 900px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
       overflow: hidden;
     }
 
@@ -2167,13 +2170,7 @@
       <span class="bg-word">redesign</span>
       <div class="eyebrow-top r d1">Sandhya Simhan · Head of Customer Marketing, Glean</div>
       <h1 class="r d2">AI-<em>Native</em><br>Customer<br>Marketing</h1>
-      <div class="byline r d3">Not faster. <strong>Redesigned.</strong></div>
       <div class="frame-hint r d4">
-        <div class="fh-item"><span class="fh-dot" style="background:var(--detect)"></span> Detect</div>
-        <span class="fh-arrow">→</span>
-        <div class="fh-item"><span class="fh-dot" style="background:var(--decide)"></span> Decide</div>
-        <span class="fh-arrow">→</span>
-        <div class="fh-item"><span class="fh-dot" style="background:var(--deliver)"></span> Deliver</div>
       </div>
     </div>
 
@@ -2733,6 +2730,20 @@
 
   <script>
     (function () {
+      const CANVAS_W = 1600, CANVAS_H = 900;
+
+      function scaleStage() {
+        const stage = document.getElementById('stage');
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const scale = Math.min(vw / CANVAS_W, vh / CANVAS_H);
+        const tx = Math.round((vw - CANVAS_W * scale) / 2);
+        const ty = Math.round((vh - CANVAS_H * scale) / 2);
+        stage.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+      }
+
+      scaleStage();
+      window.addEventListener('resize', scaleStage);
+
       const scenes = Array.from(document.querySelectorAll('.scene'));
       const total = scenes.length;
       let cur = 0;
@@ -2817,9 +2828,11 @@
         document.body.classList.add('mouse-active');
       });
 
-      // Click to advance/retreat
+      // Click to advance/retreat (use stage bounding rect to account for scale + centering)
       document.getElementById('stage').addEventListener('click', function (e) {
-        if (e.clientX > window.innerWidth * 0.35) advance();
+        const rect = document.getElementById('stage').getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width;
+        if (relX > 0.35) advance();
         else retreat();
       });
     })();
